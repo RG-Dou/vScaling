@@ -105,11 +105,11 @@ object RocksDbScalableKeyValueStore extends Logging {
       dbs.add(rocksDb)
       val caches = new util.HashSet[Cache](1)
       caches.add(cache)
-      def getCacheUsage(): Long = {
-        val usage = MemoryUtil.getApproximateMemoryUsageByType(dbs, caches)
-        usage.get(MemoryUsageType.kCacheTotal)
-      }
-      metrics.setDirtyCacheSize(() => getCacheUsage())
+//      def getCacheUsage(): Long = {
+//        val usage = MemoryUtil.getApproximateMemoryUsageByType(dbs, caches)
+//        usage.get(MemoryUsageType.kCacheTotal)
+//      }
+//      metrics.setDirtyCacheSize(() => getCacheUsage())
 
       rocksDb
     } catch {
@@ -279,11 +279,11 @@ class RocksDbScalableKeyValueStore(
     }
   }
 
-  override def memoryResize(memoryMb: Long): Long = {
-    val result = MemoryUtil.cacheResize(cache, memoryMb * 1024 * 1024)
-    metrics.totalCacheBytes.set(result)
-    result
-  }
+//  override def memoryResize(memoryMb: Long): Long = {
+//    val result = MemoryUtil.cacheResize(cache, memoryMb * 1024 * 1024)
+//    metrics.totalCacheBytes.set(result)
+//    result
+//  }
 
 //  def getCacheUsage(): Long = {
 //    val usage = MemoryUtil.getApproximateMemoryUsageByType(dbs, caches)

@@ -387,7 +387,7 @@ class TaskInstance(
   }
 
   //DrG
-  def storeMemoryResize(memoryMb: Long): Long = {
-    storageManager.memoryResize(memoryMb)
-  }
+//  def storeMemoryResize(memoryMb: Long): Long = {
+//    storageManager.memoryResize(memoryMb)
+//  }
 }

@@ -1205,10 +1205,10 @@ class SamzaContainer(
   }
 
   //DrG
-  def taskStoreMemResize(memoryMb: Long): Long = {
-    info("Shutting down task instance table manager.")
-    var totalSize = 0L
-    taskInstances.values.foreach(taskInstance => totalSize += taskInstance.storeMemoryResize(memoryMb))
-    totalSize
-  }
+//  def taskStoreMemResize(memoryMb: Long): Long = {
+//    info("Shutting down task instance table manager.")
+//    var totalSize = 0L
+//    taskInstances.values.foreach(taskInstance => totalSize += taskInstance.storeMemoryResize(memoryMb))
+//    totalSize
+//  }
 }

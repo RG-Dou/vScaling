@@ -184,7 +184,7 @@ class ScalableKeyValueStorageEngine[K, V](
     }
   }
 
-  override def memoryResize(memoryMb: Long): Long = {
-    rawStore.memoryResize(memoryMb)
-  }
+//  override def memoryResize(memoryMb: Long): Long = {
+//    rawStore.memoryResize(memoryMb)
+//  }
 }

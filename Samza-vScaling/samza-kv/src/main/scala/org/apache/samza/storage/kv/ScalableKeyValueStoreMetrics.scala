@@ -7,9 +7,9 @@ class ScalableKeyValueStoreMetrics (
                                     override val registry: MetricsRegistry = new MetricsRegistryMap)
   extends KeyValueStoreMetrics (storeName = storeName, registry = registry) {
 
-  def setDirtyCacheSize(getValue: () => Long) {
-    newGauge("used-cache-size", getValue)
-  }
+//  def setDirtyCacheSize(getValue: () => Long) {
+//    newGauge("used-cache-size", getValue)
+//  }
 
   val totalCacheBytes = newGauge[Long]("total-cache-size", 0L)
 

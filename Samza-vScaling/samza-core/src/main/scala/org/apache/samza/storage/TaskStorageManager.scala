@@ -292,17 +292,17 @@ class TaskStorageManager(
   }
 
   //DrG
-  def memoryResize(memoryMb:Long): Long = {
-    var totalTarget = 0L
-    taskStores.foreach {
-      case (storeName, storageEngine) =>
-      if (storageEngine.isInstanceOf[ScalableStorageEngine]){
-        info("Start resize the memory for %s, the target memory size is %s." format (storeName, memoryMb))
-        val finalSize = storageEngine.asInstanceOf[ScalableStorageEngine].memoryResize(memoryMb)
-        totalTarget += finalSize
-        info("After memory resize on store name %s, the final memory size is %s." format (storeName, finalSize))
-      }
-    }
-    totalTarget
-  }
+//  def memoryResize(memoryMb:Long): Long = {
+//    var totalTarget = 0L
+//    taskStores.foreach {
+//      case (storeName, storageEngine) =>
+//      if (storageEngine.isInstanceOf[ScalableStorageEngine]){
+//        info("Start resize the memory for %s, the target memory size is %s." format (storeName, memoryMb))
+//        val finalSize = storageEngine.asInstanceOf[ScalableStorageEngine].memoryResize(memoryMb)
+//        totalTarget += finalSize
+//        info("After memory resize on store name %s, the final memory size is %s." format (storeName, finalSize))
+//      }
+//    }
+//    totalTarget
+//  }
 }

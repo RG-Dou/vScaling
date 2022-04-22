@@ -440,9 +440,9 @@ public class NewStreamProcessor {
             public void onNewExtendedJobModel(String processorId, ExtendedJobModel extendedJobModel, String version){
                 LOGGER.info("onNewExtendedJobModel: start store memory resize for processor: {}.", processorId);
                 Long memSize = extendedJobModel.getMemFromProcessor(processorId);
-                long result = container.taskStoreMemResize(memSize);
-                String resultStr = Long.toString(result);
-//                String result = "1";
+//                long result = container.taskStoreMemResize(memSize);
+//                String resultStr = Long.toString(result);
+                String resultStr = "1";
                 jobCoordinator.publishResponse(resultStr, extendedJobModel, version);
             }
         };

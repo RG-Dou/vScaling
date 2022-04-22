@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Samza-vScaling" />
+        <option name="gradleJvm" value="liberica-1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Samza-vScaling" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-api" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-autoscaling" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-aws" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-azure" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-core" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-elasticsearch" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-hdfs" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-kafka" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-kv" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-kv-inmemory" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-kv-rocksdb" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-log4j" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-log4j2" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-rest" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-shell" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-sql" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-sql-shell" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-test" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-tools" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-verticalscaling" />
+            <option value="$PROJECT_DIR$/Samza-vScaling/samza-yarn" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
