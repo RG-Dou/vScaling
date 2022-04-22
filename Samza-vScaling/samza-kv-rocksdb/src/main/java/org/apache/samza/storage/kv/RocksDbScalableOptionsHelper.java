@@ -122,10 +122,12 @@ public class RocksDbScalableOptionsHelper {
     }
 
     //DrG
-    public static Options setLRUCache(Options options, Config storeConfig, LRUCache cache){
+//    public static Options setLRUCache(Options options, Config storeConfig, LRUCache cache){
+    public static Options setLRUCache(Options options, Config storeConfig, long cacheSize){
         int blockSize = storeConfig.getInt(ROCKSDB_BLOCK_SIZE_BYTES, 4096);
         BlockBasedTableConfig tableOptions = new BlockBasedTableConfig();
-        tableOptions.setBlockCache(cache).setBlockSize(blockSize);
+//        tableOptions.setBlockCache(cache).setBlockSize(blockSize);
+        tableOptions.setBlockCacheSize(cacheSize).setBlockSize(blockSize);
         options.setTableFormatConfig(tableOptions);
         return options;
     }

@@ -56,7 +56,8 @@ class RocksDbScalableKVStorageEngineFactory [K, V] extends BaseScalableKVStorage
     val blockCacheSize = RocksDbOptionsHelper.getBlockCacheSize(storageConfig, numTasksForContainer)
     val cache = new LRUCache(blockCacheSize)
     rocksDbMetrics.totalCacheBytes.set(blockCacheSize)
-    rocksDbOptions = RocksDbScalableOptionsHelper.setLRUCache(rocksDbOptions, storageConfig, cache)
+//    rocksDbOptions = RocksDbScalableOptionsHelper.setLRUCache(rocksDbOptions, storageConfig, cache)
+    rocksDbOptions = RocksDbScalableOptionsHelper.setLRUCache(rocksDbOptions, storageConfig, blockCacheSize)
 
     val rocksDbWriteOptions = new WriteOptions().setDisableWAL(true)
     val rocksDbFlushOptions = new FlushOptions().setWaitForFlush(true)
