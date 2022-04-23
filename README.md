@@ -65,5 +65,7 @@ Due to non-disclosure agreements, we are currently unable to publish the stock d
 
 
 
-All output data and figures will be found in tools/results/
+Output data will be found in tools/results/.
+
+In the next few days, we will publish the scripts to automatically generate the figures.
 
