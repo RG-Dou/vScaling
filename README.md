@@ -50,7 +50,7 @@ Due to non-disclosure agreements, we are currently unable to publish the stock d
 
    ```shell
    cd samza-testbed/nexmark_scripts
-   //similarily, for q2, q3..., q11, replace q1 in the following command.
+   #similarily, for q2, q3..., q11, replace q1 in the following command.
    sh run-comp.sh q1
    ```
 
@@ -66,3 +66,4 @@ Due to non-disclosure agreements, we are currently unable to publish the stock d
 
 
 All output data and figures will be found in tools/results/
+
