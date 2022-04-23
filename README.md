@@ -50,8 +50,8 @@ Due to non-disclosure agreements, we are currently unable to publish the stock d
 
    ```shell
    cd samza-testbed/nexmark_scripts
-   #similarily, for q2, q3..., q11, replace q1 in the following command.
-   sh run-comp.sh q1
+   #similarily, for q2, q3..., q11, replace 1 with 2, 3,..., 11 in the following command.
+   sh run-comp.sh 1
    ```
 
    
