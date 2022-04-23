@@ -15,6 +15,9 @@ sudo chmod 6050 bin/container-executor
 cd ../../../config-files
 sh build.sh
 
+cd ..
+mvn install -DskipTests
+
 cgroup=/sys/fs/cgroup
 sudo mkdir $cgroup/blkio/yarn/
 sudo chown -R $user:$user $cgroup/blkio/yarn
@@ -24,3 +27,7 @@ sudo mkdir $cgroup/memory/yarn/
 sudo chown -R $user:$user $cgroup/memory/yarn
 sudo mkdir $cgroup/net_cls/yarn/
 sudo chown -R $user:$user $cgroup/net_cls/yarn
+
+cd hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/
+./sbin/stop-yarn.sh
+./sbin/start-yarn.sh
