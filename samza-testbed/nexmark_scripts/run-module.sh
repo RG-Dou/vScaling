@@ -9,20 +9,20 @@ HOST="localhost"
 APP=$1
 Policy="default"
 CYCLE=300
-BASE=10000
-RATE=1000
+BASE=4000
+RATE=4000
 CPU_SWITCH="true"
 MEM_SWITCH="true"
 ARRIVAL_SWITCH="true"
 
-if [ $2 == 'CPU' ];
+if [ $2 == 'CPU Scheduling' ];
 then
   MEM_SWITCH="false"
-elif [ $2 == 'memory' ]; then
+elif [ $2 == 'Memory Scheduling' ]; then
   CPU_SWITCH="false"
-elif [ $2 == 'current arrival rate' ]; then
+elif [ $2 == 'Both with Current Arrival Rate' ]; then
   ARRIVAL_SWITCH="false"
-elif [ $2 == 'baseline' ]; then
+elif [ $2 == 'Static' ]; then
   CPU_SWITCH="false"
   MEM_SWITCH="false"
 fi
@@ -120,6 +120,7 @@ function runAppStatic() {
     echo "assigned app id is: $appid"
 }
 
+# shellcheck disable=SC2120
 function killApp() {
     $Hadoop_Dir/bin/yarn application -kill $app
     $Tool_Dir/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q${APP}-1
@@ -128,9 +129,9 @@ function killApp() {
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
-    rm -rf $Tool_Dir/results/$APP
-    mkdir -rf $Tool_Dir/results/$APP
-    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/$APP
+    rm -rf $Tool_Dir/results/effect/$2
+    mkdir -rf $Tool_Dir/results/effect/$2
+    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/effect/$2
 }
 
 function killGenerator() {
@@ -152,24 +153,11 @@ function main(){
     runApp
 
     python -c 'import time; time.sleep(100)'
+    for j in {1..4}
+    do
+          generateBid
+    done
 
-    if [[ ${APP} == 1 ]] || [[ ${APP} == 5 ]] || [[ ${APP} == 2 ]] || [[ ${APP} == 11 ]];
-    then
-        for j in {1..1}
-        do
-            generateBid
-        done
-    elif [[ ${APP} == 8 ]] || [[ ${APP} == 3 ]];
-    then
-        for j in {1..5}
-        do
-            generateAuction
-        done
-        for j in {1..5}
-        do
-            generatePerson
-        done
-    fi
 
     python -c 'import time; time.sleep(1800)'
 

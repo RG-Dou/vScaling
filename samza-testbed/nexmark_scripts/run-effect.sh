@@ -1,7 +1,7 @@
 
-bash run-module.sh 1 'both'
-bash run-module.sh 1 'CPU'
-bash run-module.sh 1 'memory'
-bash run-module.sh 1 'current arrival rate'
-bash run-module.sh 1 'baseline'
+bash run-module.sh 1 'Both Scheduling'
+bash run-module.sh 1 'CPU Scheduling'
+bash run-module.sh 1 'Memory Scheduling'
+bash run-module.sh 1 'Both with Current Arrival Rate'
+bash run-module.sh 1 'Static'
 bash draw_effect.sh 1
