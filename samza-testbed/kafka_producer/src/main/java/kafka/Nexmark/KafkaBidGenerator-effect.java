@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * SSE generaor
  */
-public class KafkaBidGenerator {
+public class KafkaBidGeneratorEffect {
 
     private String TOPIC;
 
@@ -29,7 +29,7 @@ public class KafkaBidGenerator {
     private int base;
     private ZipfGenerator zipfGenerator;
 
-    public KafkaBidGenerator(String input, String BROKERS, int rate, int cycle, int base) {
+    public KafkaBidGeneratorEffect(String input, String BROKERS, int rate, int cycle, int base) {
         Properties props = new Properties();
         props.put("bootstrap.servers", BROKERS);
         props.put("client.id", "Bid");
@@ -217,7 +217,7 @@ public class KafkaBidGenerator {
         int cycle = params.getInt("cycle", 360);
         int base = params.getInt("base", 0);
 
-        new KafkaBidGenerator(TOPIC, BROKERS, rate, cycle, base).generate();
+        new KafkaBidGeneratorEffect(TOPIC, BROKERS, rate, cycle, base).generate();
     }
 }
 

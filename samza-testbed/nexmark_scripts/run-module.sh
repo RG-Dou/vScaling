@@ -94,7 +94,7 @@ function generateAuction() {
 
 function generateBid() {
     echo $RATE
-    java -cp ${APP_DIR}/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.Nexmark.KafkaBidGenerator \
+    java -cp ${APP_DIR}/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.Nexmark.KafkaBidGeneratorEffect \
         -host $BROKER -topic bids -rate $RATE -cycle $CYCLE -base $BASE &
 }
 
