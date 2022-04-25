@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.Random;
 
 /**
- * SSE generaor
+ * SSE generator
  */
 public class KafkaBidGeneratorEffect {
 
@@ -37,9 +37,6 @@ public class KafkaBidGeneratorEffect {
         props.put("linger.ms", "10");
         props.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        //drg
-//        props.put("partitioner.class", "kafka.Nexmark.BidPartitioner");
-//        props.put("partitioner.class", "generator.SSEPartitioner");
         producer = new KafkaProducer<Long, String>(props);
         TOPIC = input;
         this.rate = rate;
@@ -144,37 +141,12 @@ public class KafkaBidGeneratorEffect {
                 config.timestampAndInterEventDelayUsForEvent(
                         config.nextEventNumber(eventsCountSoFar)).getKey();
 
-//                ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, null, System.currentTimeMillis(), nextId,
-//                        BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
-//        ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, nextId,
-//                BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
-        long key = zipfGenerator.next();
-        ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, key,
+        ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, nextId,
                 BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
 
         producer.send(newRecord);
+        eventsCountSoFar++;
 
-//        for q1, q2, q3, i < 9
-//        for q5, i < 14
-//        for (int i = 0; i < 9; i ++){
-        for (int i = 0; i < 12; i ++){
-            producer.send(newRecord);
-            eventsCountSoFar++;
-        }
-
-//        for (int j = 0; j < 10; j ++) {
-//            ProducerRecord<Long, String> newRecord1 = new ProducerRecord<Long, String>(TOPIC, j*2,  j*2l,
-//                    BidGenerator.nextBid(j*2l, rnd, eventTimestamp, config).toString());
-//            producer.send(newRecord1);
-//        }
-//        Random rnd1 = new Random(nextId);
-//        if (rnd1.nextInt(4) == 0){
-//            ProducerRecord<Long, String> newRecord1 = new ProducerRecord<Long, String>(TOPIC, 2l,
-//                    BidGenerator.nextBid(2l, rnd, eventTimestamp, config).toString());
-//            producer.send(newRecord1);
-//        }
-
-//                Random rnd1 = new Random(nextId);
 		if(System.currentTimeMillis() - start > 500000 && System.currentTimeMillis() - start < 1100000){
 			if (rnd1.nextInt(8) == 0){
 		                ProducerRecord<Long, String> newRecord1 = new ProducerRecord<Long, String>(TOPIC, 2l,
@@ -199,11 +171,6 @@ public class KafkaBidGeneratorEffect {
                         	BidGenerator.nextBid(7l, rnd, eventTimestamp, config).toString());
                 		producer.send(newRecord1);
 			}
-//			if (rnd1.nextInt(8) < 3){
-//	                	ProducerRecord<Long, String> newRecord1 = new ProducerRecord<Long, String>(TOPIC, 1l,
-//                        	BidGenerator.nextBid(1l, rnd, eventTimestamp, config).toString());
-//                		producer.send(newRecord1);
-//			}
 		}
     }
 
