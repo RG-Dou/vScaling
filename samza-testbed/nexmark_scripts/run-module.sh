@@ -153,6 +153,8 @@ function main(){
     # wait for app start
     runApp
 
+    BROKER=${HOST}:9092
+
     python -c 'import time; time.sleep(100)'
     for j in {1..4}
     do
