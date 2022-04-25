@@ -1,6 +1,5 @@
 package kafka.Nexmark;
 
-import kafka.Nexmark.refactored.ZipfGenerator;
 import org.apache.beam.sdk.nexmark.NexmarkConfiguration;
 import org.apache.beam.sdk.nexmark.sources.generator.GeneratorConfig;
 import org.apache.beam.sdk.nexmark.sources.generator.model.AuctionGenerator;
@@ -27,7 +26,7 @@ public class KafkaBidGeneratorEffect {
     private int rate;
     private int cycle;
     private int base;
-    private ZipfGenerator zipfGenerator;
+    private long start;
 
     public KafkaBidGeneratorEffect(String input, String BROKERS, int rate, int cycle, int base) {
         Properties props = new Properties();
@@ -50,8 +49,6 @@ public class KafkaBidGeneratorEffect {
         nexconfig.numEventGenerators=1;
         nexconfig.avgPersonByteSize=100;
         config = new GeneratorConfig(nexconfig, 1, 1000L, 0, 1);
-
-        zipfGenerator = new ZipfGenerator(10000, 1);
     }
 
     public void generate() throws InterruptedException {
@@ -66,7 +63,7 @@ public class KafkaBidGeneratorEffect {
         System.out.println("++++++enter warm up");
         warmup();
         System.out.println("++++++end warm up");
-        long start = System.currentTimeMillis();
+        start = System.currentTimeMillis();
 
         while (running) {
 
@@ -147,6 +144,7 @@ public class KafkaBidGeneratorEffect {
         producer.send(newRecord);
         eventsCountSoFar++;
 
+        Random rnd1 = new Random();
 		if(System.currentTimeMillis() - start > 500000 && System.currentTimeMillis() - start < 1100000){
 			if (rnd1.nextInt(8) == 0){
 		                ProducerRecord<Long, String> newRecord1 = new ProducerRecord<Long, String>(TOPIC, 2l,
