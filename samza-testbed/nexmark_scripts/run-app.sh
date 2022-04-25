@@ -17,7 +17,7 @@ ARRIVAL_SWITCH="true"
 
 MEM=1250
 
-# sh $Tool_Dir/script/cleanKafka.sh
+sh $Tool_Dir/script/cleanKafka.sh
 
 function delete_topic() {
     $Topic_shell --delete --zookeeper ${HOST}:2181 --topic $1
@@ -67,6 +67,7 @@ function uploadHDFS() {
     $Hadoop_Dir/bin/hdfs dfs -rm  hdfs://${HOST}:9000/testbed-nexmark/*-dist.tar.gz
     $Hadoop_Dir/bin/hdfs dfs -mkdir hdfs://${HOST}:9000/testbed-nexmark
     $Hadoop_Dir/bin/hdfs dfs -put  ${APP_DIR}/testbed_1.0.0/target/*-dist.tar.gz hdfs://${HOST}:9000/testbed-nexmark
+    rm -rf $Hadoop_Dir/logs/userlogs/*
 }
 
 function compileGenerator() {
@@ -117,7 +118,7 @@ function killApp() {
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
     rm -rf $Tool_Dir/results/$APP
-    mkdir -rf $Tool_Dir/results/$APP
+    mkdir $Tool_Dir/results/$APP
     cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/$APP
 }
 
@@ -141,6 +142,8 @@ function main(){
 
     python -c 'import time; time.sleep(100)'
 
+    BROKER=${HOST}:9092
+
     if [[ ${APP} == 1 ]] || [[ ${APP} == 5 ]] || [[ ${APP} == 2 ]] || [[ ${APP} == 11 ]];
     then
         for j in {1..1}
@@ -159,7 +162,8 @@ function main(){
         done
     fi
 
-    python -c 'import time; time.sleep(1800)'
+#    python -c 'import time; time.sleep(1800)'
+    python -c 'import time; time.sleep(300)'
 
     killGenerator
     pwd
