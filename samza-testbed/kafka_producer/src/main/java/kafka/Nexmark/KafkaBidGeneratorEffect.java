@@ -82,9 +82,7 @@ public class KafkaBidGeneratorEffect {
 
             for (int i = 0; i < Integer.valueOf(curRate/20); i++) {
                 sendMessages();
-//                tupleCounter++;
-                tupleCounter += 13;
-                i+=12;
+                tupleCounter++;
                 eventsCountSoFar++;
             }
 
