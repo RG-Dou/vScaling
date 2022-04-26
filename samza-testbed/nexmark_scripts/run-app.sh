@@ -167,7 +167,7 @@ function main(){
 
     killGenerator
     pwd
-#    python ${APP_DIR}/nexmark_scripts/draw_groundTruth.py ${Hadoop_Dir}/logs/userlogs/application_${appid}
+    python ${APP_DIR}/nexmark_scripts/draw_groundTruth.py ${Hadoop_Dir}/logs/userlogs/application_${appid}
 
     killApp
     killGenerator
