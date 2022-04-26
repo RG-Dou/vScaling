@@ -14,6 +14,7 @@ RATE=4000
 CPU_SWITCH="true"
 MEM_SWITCH="true"
 ARRIVAL_SWITCH="true"
+MODULE=$2
 
 if [ $2 == 'CPU Scheduling' ];
 then
@@ -130,9 +131,9 @@ function killApp() {
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
-    rm -rf $Tool_Dir/results/effect/$2
-    mkdir -rf $Tool_Dir/results/effect/$2
-    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/effect/$2
+    rm -rf $Tool_Dir/results/effect/$MODULE
+    mkdir -rf $Tool_Dir/results/effect/$MODULE
+    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/effect/$MODULE
 }
 
 function killGenerator() {
