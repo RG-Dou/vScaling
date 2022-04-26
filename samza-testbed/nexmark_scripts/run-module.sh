@@ -29,7 +29,7 @@ fi
 
 MEM=1250
 
-# sh $Tool_Dir/script/cleanKafka.sh
+sh $Tool_Dir/script/cleanKafka.sh
 
 function delete_topic() {
     $Topic_shell --delete --zookeeper ${HOST}:2181 --topic $1
