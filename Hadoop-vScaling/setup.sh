@@ -27,13 +27,3 @@ sudo mkdir $cgroup/memory/yarn/
 sudo chown -R $user:$user $cgroup/memory/yarn
 sudo mkdir $cgroup/net_cls/yarn/
 sudo chown -R $user:$user $cgroup/net_cls/yarn
-
-cd hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/
-./sbin/stop-yarn.sh
-./sbin/start-yarn.sh
-python -c 'import time; time.sleep(5)'
-rm -rf dfs/*
-./bin/hdfs namenode -format
-./sbin/hadoop-daemon.sh start namenode
-./sbin/hadoop-daemon.sh start datanode
-./sbin/hadoop-daemon.sh start secondarynamenode

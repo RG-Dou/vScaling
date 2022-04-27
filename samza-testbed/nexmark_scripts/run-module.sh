@@ -9,8 +9,8 @@ HOST="localhost"
 APP=$1
 Policy="default"
 CYCLE=300
-BASE=2000
-RATE=10000
+BASE=0
+RATE=8000
 CPU_SWITCH="true"
 MEM_SWITCH="true"
 ARRIVAL_SWITCH="true"
@@ -28,7 +28,7 @@ elif [ $2 == 'Static' ]; then
   MEM_SWITCH="false"
 fi
 
-MEM=1250
+MEM=1500
 
 sh $Tool_Dir/script/cleanKafka.sh
 

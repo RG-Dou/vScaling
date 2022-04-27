@@ -1,6 +1,9 @@
-import os
+import matplotlib
+matplotlib.use('Agg')
+
 import sys
-import util.Tools as tools
+import os
+import Tools as tools
 import matplotlib.pyplot as plt
 from pylab import setp
 
@@ -40,7 +43,7 @@ def plt_max_latency(x, y, items, root):
     plt.grid(linestyle="--", alpha=0.8)
     plt.legend(fontsize=20, loc="upper center", ncol=3)
     plt.savefig(root + '/MaxLatency.pdf')
-    plt.show()
+##    plt.show()
 
 
 def get_am_path(path):
@@ -54,7 +57,7 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
     datas = {}
     for dir in sub_dirs:
         datas[dir] = []
-        file = get_am_path(root + "/" + dir) + "/stdout"
+        file = root + '/' + dir + '/' +  get_am_path(root + "/" + dir) + "/stdout"
         for i in range(num_containers):
             i = i + 2
             instance = "0000" + str(i)
@@ -114,7 +117,7 @@ def draw_box_plot(datas, labels, sub_dirs, num_containers, log):
     hB.set_visible(False)
     hR.set_visible(False)
     plt.savefig(labels['saveFile'])
-    plt.show()
+#    plt.show()
 
 
 def setBoxColors(bp):
@@ -136,6 +139,7 @@ def setBoxColors(bp):
 
 def plt_memory_allocation(root):
     sub_dirs = ["CPU Scheduling", "Both Scheduling"]
+    sub_dirs = ['Static']
     datas = fetch_am_messages(root, sub_dirs, "configure memory", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Configured Memory (MB)', "saveFile": root+"/ConfigMem.pdf"}
     draw_box_plot(datas, labels, sub_dirs, 4, False)
@@ -157,12 +161,13 @@ def plt_latency(root):
 
 def draw_memory_info(root):
     plt_memory_allocation(root)
-    plt_page_fault(root)
-    plt_latency(root)
+#    plt_page_fault(root)
+#    plt_latency(root)
 
 
 if __name__ == "__main__":
     root = sys.argv[1]
     sub_dirs = ['Both Scheduling', 'CPU Scheduling', 'Memory Scheduling', 'Both with Current Arrival Rate', 'Static']
+    sub_dirs = ['Static']
     draw_max_latency(root, sub_dirs)
     draw_memory_info(root)
