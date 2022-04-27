@@ -117,9 +117,9 @@ function killApp() {
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
-    rm -rf $Tool_Dir/results/$APP
-    mkdir $Tool_Dir/results/$APP
-    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/$APP
+    rm -rf $Tool_Dir/results/$APP/$Policy
+    mkdir $Tool_Dir/results/$APP/$Policy
+    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/$APP/$Policy
 }
 
 function killGenerator() {
