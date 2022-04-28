@@ -9,3 +9,5 @@ python -c 'import time; time.sleep(5)'
 ./sbin/hadoop-daemon.sh start datanode
 ./sbin/hadoop-daemon.sh start secondarynamenode
 
+cd ../../../../tools/zookeeper
+./bin/zkServer.sh start
