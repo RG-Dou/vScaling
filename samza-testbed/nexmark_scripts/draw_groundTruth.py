@@ -90,6 +90,8 @@ def write_max_latency(times, latencies):
         for latency_c in latencies_c.values():
             if len(latency_c) > i and latency_c[i] > max_latency:
                 max_latency = latency_c[i]
+        if max_latency == 0:
+            continue
         max_latency_x.append(i)
         max_latency_y.append(max_latency)
         line = str(i) + ":" + str(max_latency) + "\n"
