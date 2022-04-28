@@ -100,8 +100,8 @@ public class KafkaBidGeneratorEffect {
         long emitStartTime = 0;
         long warmupStart = System.currentTimeMillis();
 //        int curRate = rate + base;
-        curRate = 0;
-        while (System.currentTimeMillis()-warmupStart < 20000) {
+        int curRate = 0;
+        while (System.currentTimeMillis()-warmupStart < 60000) {
             emitStartTime = System.currentTimeMillis();
             for (int i = 0; i < Integer.valueOf(curRate/20); i++) {
                 sendMessages();
