@@ -60,8 +60,10 @@ def calibrate(time, latency):
         t1 = time[i+1]
         a0 = latency[i]
         a1 = latency[i+1]
-        if t1 - t0 >= 1 :
-            for t in range(t0 + 1, t1 + 1):
+        if t0 <= time_res[-1]:
+            continue
+        if t1 - t0 >= 1:
+            for t in range(t0, t1):
                 d = (t-t0) * (a1 - a0) / (t1 - t0) + a0
                 time_res.append(t)
                 latency_res.append(d)
@@ -135,4 +137,3 @@ if __name__ == "__main__":
     output_file.close()
     draw_plot(data_x, data_y, "/groundTruth")
     write_max_latency(data_x, data_y)
-

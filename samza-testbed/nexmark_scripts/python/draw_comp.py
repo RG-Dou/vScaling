@@ -14,13 +14,6 @@ def read_max_latency(file_name):
         latency.append(int(line.split(":")[1][:-1]))
     return time, latency
 
-def draw_max_latency(root, sub_dirs):
-    xs, ys = {}, {}
-    for dir in sub_dirs:
-        file = root + '/' + dir + '/maxLatency.txt'
-        xs[dir], ys[dir] = tools.read_max_latency(file)
-    plt_max_latency(xs, ys, sub_dirs, root)
-
 
 def sample_data(time, latency, start, end, granularity):
     time_sampling, latency_sampling = [], []

@@ -10,10 +10,10 @@ from pylab import setp
 
 def draw_max_latency(root, sub_dirs):
     xs, ys = {}, {}
-    for dir in sub_dirs:
+    for key, dir in sub_dirs.items():
         file = root + '/' + dir + '/maxLatency.txt'
-        xs[dir], ys[dir] = tools.read_max_latency(file)
-    plt_max_latency(xs, ys, sub_dirs, root)
+        xs[key], ys[key] = tools.read_max_latency(file)
+    plt_max_latency(xs, ys, sub_dirs.keys(), root)
 
 
 def plt_max_latency(x, y, items, root):
@@ -55,8 +55,8 @@ def get_am_path(path):
 
 def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
     datas = {}
-    for dir in sub_dirs:
-        datas[dir] = []
+    for key, dir in sub_dirs.items():
+        datas[key] = []
         file = root + '/' + dir + '/' +  get_am_path(root + "/" + dir) + "/stdout"
         for i in range(num_containers):
             i = i + 2
@@ -72,7 +72,7 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
                     if time[i] < start or time[i] > start + length:
                         continue
                     avg_pg.append((data[i] - data[i-100])/(time[i] - time[i-100]))
-                datas[dir].append(avg_pg)
+                datas[key].append(avg_pg)
             else:
                 index1, index2 = 0, 0
                 for i in range(len(time)):
@@ -80,7 +80,7 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
                         index1 = i
                     if time[i] < start + length:
                         index2 = i
-                datas[dir].append(data[index1:index2])
+                datas[key].append(data[index1:index2])
     return datas
 
 
@@ -138,25 +138,27 @@ def setBoxColors(bp):
 
 
 def plt_memory_allocation(root):
-    sub_dirs = ["CPU Scheduling", "Both Scheduling"]
-    sub_dirs = ['Static']
+    sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
+    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "configure memory", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Configured Memory (MB)', "saveFile": root+"/ConfigMem.pdf"}
-    draw_box_plot(datas, labels, sub_dirs, 4, False)
+    draw_box_plot(datas, labels, sub_dirs.keys(), 4, False)
 
 
 def plt_page_fault(root):
-    sub_dirs = ["CPU Scheduling", "Both Scheduling"]
+    sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
+    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "executor pg major fault", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Major Page Fault / s', "saveFile": root+"/PageFault.pdf"}
-    draw_box_plot(datas, labels, sub_dirs, 4, True)
+    draw_box_plot(datas, labels, sub_dirs.keys(), 4, True)
 
 
 def plt_latency(root):
-    sub_dirs = ["CPU Scheduling", "Both Scheduling"]
+    sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
+    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "Instantaneous Delay", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Latency (ms)', "saveFile": root+"/Latency.pdf"}
-    draw_box_plot(datas, labels, sub_dirs, 4, True)
+    draw_box_plot(datas, labels, sub_dirs.keys(), 4, True)
 
 
 def draw_memory_info(root):
@@ -167,7 +169,7 @@ def draw_memory_info(root):
 
 if __name__ == "__main__":
     root = sys.argv[1]
-    sub_dirs = ['Both Scheduling', 'CPU Scheduling', 'Memory Scheduling', 'Both with Current Arrival Rate', 'Static']
-    sub_dirs = ['Static']
+    sub_dirs = {'Both Scheduling': 'both', 'CPU Scheduling': 'CPU', 'Memory Scheduling': 'memory', 'Both with Current Arrival Rate': 'current', 'Static': 'static'}
+    sub_dirs = {'Static': 'static'}
     draw_max_latency(root, sub_dirs)
     draw_memory_info(root)
