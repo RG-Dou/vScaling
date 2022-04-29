@@ -9,26 +9,26 @@ HOST="localhost"
 APP=$1
 Policy="default"
 CYCLE=300
-BASE=0
-RATE=8000
+BASE=300
+RATE=300
 CPU_SWITCH="true"
 MEM_SWITCH="true"
 ARRIVAL_SWITCH="true"
 MODULE=$2
 
-if [ $2 == 'CPU Scheduling' ];
+if [ $2 == 'CPU' ];
 then
   MEM_SWITCH="false"
-elif [ $2 == 'Memory Scheduling' ]; then
+elif [ $2 == 'memory' ]; then
   CPU_SWITCH="false"
-elif [ $2 == 'Both with Current Arrival Rate' ]; then
+elif [ $2 == 'current' ]; then
   ARRIVAL_SWITCH="false"
-elif [ $2 == 'Static' ]; then
+elif [ $2 == 'static' ]; then
   CPU_SWITCH="false"
   MEM_SWITCH="false"
 fi
 
-MEM=1500
+MEM=$3
 
 sh $Tool_Dir/script/cleanKafka.sh
 
@@ -131,9 +131,9 @@ function killApp() {
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
 #    ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
-    rm -rf $Tool_Dir/results/effect/$MODULE
-    mkdir -rf $Tool_Dir/results/effect/$MODULE
-    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/effect/$MODULE
+    rm -rf $Tool_Dir/results/effect/$MEM/$MODULE
+    mkdir -rf $Tool_Dir/results/effect/$MEM/$MODULE
+    cp -rf ${Hadoop_Dir}/logs/userlogs/* $Tool_Dir/results/effect/$MEM/$MODULE
 }
 
 function killGenerator() {

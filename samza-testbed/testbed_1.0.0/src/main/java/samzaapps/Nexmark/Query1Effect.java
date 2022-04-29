@@ -69,7 +69,7 @@ public class Query1Effect implements StreamApplication, Serializable {
 
         bids
                 .map(kv -> {
-//                    delay(1);
+                    delay(1);
                     return kv;
                 })
                 .map(bid -> KV.of(String.valueOf(bid.getAuction()),
@@ -87,7 +87,7 @@ public class Query1Effect implements StreamApplication, Serializable {
 //        ranN = ranN*1000;
 //        long delay = ranN.intValue();
 //        if (delay < 0) delay = 6000;
-        long delay = interval*10000;
+        long delay = interval*1000000;
         Long start = System.nanoTime();
         while (System.nanoTime() - start < delay) {}
     }
