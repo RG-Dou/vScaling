@@ -21,7 +21,8 @@ The vertical scaling framework is designed for realtime stream processing on bot
 go to the Hadoop-vScaling/, run
 
 ```shell
-sh setup.sh
+sh setup.sh ${your username of OS}
+#no worry about the hadoop-dist compile error
 ```
 
 

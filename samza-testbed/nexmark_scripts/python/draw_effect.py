@@ -8,10 +8,17 @@ import matplotlib.pyplot as plt
 from pylab import setp
 
 
+def get_app_path(path):
+    for root1, dirs1, files1 in os.walk(path):
+        for sub_dir in dirs1:
+            return sub_dir
+
+
 def draw_max_latency(root, sub_dirs):
     xs, ys = {}, {}
     for key, dir in sub_dirs.items():
-        file = root + '/' + dir + '/maxLatency.txt'
+        dir_path = root + '/' +dir
+        file = dir_path + '/' + get_app_path(dir_path) + '/maxLatency.txt'
         xs[key], ys[key] = tools.read_max_latency(file)
     plt_max_latency(xs, ys, sub_dirs.keys(), root)
 
@@ -57,7 +64,8 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
     datas = {}
     for key, dir in sub_dirs.items():
         datas[key] = []
-        file = root + '/' + dir + '/' +  get_am_path(root + "/" + dir) + "/stdout"
+        dir_path = root + '/' + dir
+        file = dir_path + '/' + get_app_path(dir_path) + '/' + get_am_path(dir_path) + "/stdout"
         for i in range(num_containers):
             i = i + 2
             instance = "0000" + str(i)
