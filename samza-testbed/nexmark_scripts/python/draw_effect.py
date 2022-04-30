@@ -6,7 +6,6 @@ import os
 import Tools as tools
 import matplotlib.pyplot as plt
 from pylab import setp
-instances = ["000002", "000003", "000004", "000005"]
 
 def get_app_path(path):
     for root1, dirs1, files1 in os.walk(path):
@@ -21,37 +20,14 @@ def get_am_path(path):
                 return sub_dir
 
 
-def get_max_latency(file_name):
-    times, latencies = {}, {}
-    min_length = 1000000000
-    for instance in instances:
-        time, latency = tools.read_file("Instantaneous Delay", file_name, instance)
-        times[instance] = time
-        latencies[instance] = tools.calibrate(time, latency)
-        if len(latencies[instance]) < min_length:
-            min_length = len(latencies[instance])
-
-    time, res = [], []
-    for i in range(min_length):
-        time.append(i/10.0)
-        latency = 0
-        for instance in instances:
-            if latencies[instance][i] > latency:
-                latency = latencies[instance][i]
-        res.append(latency)
-
-    return time, res
-
-
 def draw_max_latency(root, sub_dirs):
     xs, ys = {}, {}
     for key, dir in sub_dirs.items():
         dir_path = root + '/' +dir
-        # file = dir_path + '/' + get_app_path(dir_path) + '/maxLatency.txt'
-        # times, ys[key] = tools.read_max_latency(file)
-        # xs[key] = [i/10.0 for i in times]
-        file = dir_path + '/' + get_app_path(dir_path) + '/' + get_am_path(dir_path) + "/stdout"
-        xs[key], ys[key] = get_max_latency(file)
+        file = dir_path + '/' + get_app_path(dir_path) + '/maxLatency.txt'
+        times, latencies = tools.read_max_latency(file)
+        xs[key] = [i/10.0 for i in times]
+        ys[key] = tools.get_avg(latencies, 100)
     plt_max_latency(xs, ys, sub_dirs.keys(), root)
 
 
