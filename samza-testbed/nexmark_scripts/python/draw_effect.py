@@ -19,7 +19,9 @@ def draw_max_latency(root, sub_dirs):
     for key, dir in sub_dirs.items():
         dir_path = root + '/' +dir
         file = dir_path + '/' + get_app_path(dir_path) + '/maxLatency.txt'
-        xs[key], ys[key] = tools.read_max_latency(file)
+        times, ys[key] = tools.read_max_latency(file)
+        xs[key] = [i/10.0 for i in times]
+        print(xs[key])
     plt_max_latency(xs, ys, sub_dirs.keys(), root)
 
 
@@ -178,6 +180,6 @@ def draw_memory_info(root):
 if __name__ == "__main__":
     root = sys.argv[1]
     sub_dirs = {'Both Scheduling': 'both', 'CPU Scheduling': 'CPU', 'Memory Scheduling': 'memory', 'Both with Current Arrival Rate': 'current', 'Static': 'static'}
-    sub_dirs = {'Static': 'static'}
+    #sub_dirs = {'Static': 'static'}
     draw_max_latency(root, sub_dirs)
     draw_memory_info(root)
