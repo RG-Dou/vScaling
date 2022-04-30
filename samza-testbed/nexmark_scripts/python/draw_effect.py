@@ -94,7 +94,7 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
     return datas
 
 
-def draw_box_plot(datas, labels, sub_dirs, num_containers, log):
+def draw_box_plot(datas, labels, sub_dirs, num_containers, log, ylim):
     plt.figure(figsize=(12,6))
     left, width = 0.10, 0.85
     bottom, height = 0.15, 0.80
@@ -107,7 +107,7 @@ def draw_box_plot(datas, labels, sub_dirs, num_containers, log):
     plt.title("", fontsize=40)
     if log:
         plt.yscale('log')
-    plt.ylim(top=1E5)
+    plt.ylim(bottom=ylim['bottom'], top=ylim['top'])
     plt.grid(linestyle="--", alpha=0.8, axis='y')
     position1, position2 = [], []
     flierprops = dict(marker='o', markerfacecolor='r', markersize=1,
@@ -149,37 +149,36 @@ def setBoxColors(bp):
 
 def plt_memory_allocation(root):
     sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
-    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "configure memory", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Configured Memory (MB)', "saveFile": root+"/ConfigMem.pdf"}
-    draw_box_plot(datas, labels, sub_dirs.keys(), 4, False)
+    ylim = {'bottom': 1050, 'top': 1450}
+    draw_box_plot(datas, labels, list(sub_dirs.keys()), 4, False, ylim)
 
 
 def plt_page_fault(root):
     sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
-    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "executor pg major fault", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Major Page Fault / s', "saveFile": root+"/PageFault.pdf"}
-    draw_box_plot(datas, labels, sub_dirs.keys(), 4, True)
+    ylim = {'bottom': 1E0, 'top': 1E5}
+    draw_box_plot(datas, labels, list(sub_dirs.keys()), 4, True, ylim)
 
 
 def plt_latency(root):
     sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
-    sub_dirs = {'Static': 'static'}
     datas = fetch_am_messages(root, sub_dirs, "Instantaneous Delay", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Latency (ms)', "saveFile": root+"/Latency.pdf"}
-    draw_box_plot(datas, labels, sub_dirs.keys(), 4, True)
+    ylim = {'bottom': 1E0, 'top': 1E7}
+    draw_box_plot(datas, labels, list(sub_dirs.keys()), 4, True, ylim)
 
 
 def draw_memory_info(root):
     plt_memory_allocation(root)
-#    plt_page_fault(root)
-#    plt_latency(root)
+    plt_page_fault(root)
+    plt_latency(root)
 
 
 if __name__ == "__main__":
     root = sys.argv[1]
     sub_dirs = {'Both Scheduling': 'both', 'CPU Scheduling': 'CPU', 'Memory Scheduling': 'memory', 'Both with Current Arrival Rate': 'current', 'Static': 'static'}
-    #sub_dirs = {'Static': 'static'}
     draw_max_latency(root, sub_dirs)
     draw_memory_info(root)
