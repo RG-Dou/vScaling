@@ -47,6 +47,8 @@ Due to non-disclosure agreements, we are currently unable to publish the stock d
 
 #### Nexmark Application
 
+To get figures, make sure you have installed **Python** (not Python 3), and **matplotlib** libraries
+
 1. For comparion with Elasticutor (Section 5.1), run
 
    ```shell
