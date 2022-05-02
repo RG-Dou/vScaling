@@ -20,7 +20,10 @@ def get_message(file):
     end_time, schedule_time = 0, 0
     for line in file.readlines():
         if "Model, time" in line:
-            end_time = int(line.split(" ")[2])
+            time = line.split(" ")[2]
+            if time[-1] == ',':
+                time = time[:-1]
+            end_time = int(time)
         if "last time" in line:
             schedule_time = end_time
     if end_time < 18000:
