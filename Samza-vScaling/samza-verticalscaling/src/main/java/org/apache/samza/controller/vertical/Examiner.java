@@ -86,7 +86,6 @@ public class Examiner{
 //        return delay;
 //    }
 
-    //DrG
     public void updateExecutorState(long timeIndex, Map<String, Resource> executorResource, Map<String, Double> executorMemUsed,
                                     Map<String, Double> executorCpuUsage, Map<String, Long> pgMajFault){
         this.state.executorState.updateResource(timeIndex, executorResource, executorMemUsed, executorCpuUsage, pgMajFault);

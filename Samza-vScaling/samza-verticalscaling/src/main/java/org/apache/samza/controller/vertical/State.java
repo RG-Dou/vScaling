@@ -282,14 +282,14 @@ public class State {
         for(String executor: executorMapping.keySet()) {
             List<Integer> partitions = new LinkedList<>();
             for (String partitionId : executorMapping.get(executor)) {
-                //drg
+
                 if(substreamArrived.containsKey(partitionId) && substreamProcessed.containsKey(partitionId)){
                     partitions.add(substreamIdFromStringToInt(partitionId));
                 }
 
 //                        partitions.add(substreamIdFromStringToInt(partitionId));
             }
-            //drg
+
             if(partitions.size() > 0)
                 mapping.put(executorIdFromStringToInt(executor), partitions);
 //                    mapping.put(executorIdFromStringToInt(executor), partitions);
