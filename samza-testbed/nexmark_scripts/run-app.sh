@@ -15,8 +15,6 @@ CPU_SWITCH="true"
 MEM_SWITCH="true"
 ARRIVAL_SWITCH="true"
 
-MEM=1250
-
 sh $Tool_Dir/script/cleanKafka.sh
 
 function delete_topic() {
@@ -126,6 +124,20 @@ function killGenerator() {
     kill -9 $(jps | grep Generator | awk '{print $1}')
 }
 
+if [[ ${APP} == 3 ]] || [[ ${APP} == 5 ]] || [[ ${APP} == 8 ]];
+then
+    MEM=1300
+elif [[ ${APP} == 11 ]];
+then
+    MEM=1250
+elif [[ ${APP} == 2 ]];
+then
+    MEM=1200
+elif [[ ${APP} == 1 ]];
+then
+    MEM=1150
+fi
+
 configAppSrc
 clearEnv
 if [ ${IS_COMPILE} == 1 ]
@@ -162,8 +174,8 @@ function main(){
         done
     fi
 
-#    python -c 'import time; time.sleep(1800)'
-    python -c 'import time; time.sleep(300)'
+    python -c 'import time; time.sleep(1800)'
+#    python -c 'import time; time.sleep(300)'
 
     killGenerator
     pwd

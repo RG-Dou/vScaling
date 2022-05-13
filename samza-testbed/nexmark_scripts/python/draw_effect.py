@@ -95,7 +95,7 @@ def fetch_am_messages(root, sub_dirs, metric, num_containers, start, length):
 
 
 def draw_box_plot(datas, labels, sub_dirs, num_containers, log, ylim):
-    plt.figure(figsize=(12,6))
+    plt.figure(figsize=(15,6))
     left, width = 0.10, 0.85
     bottom, height = 0.15, 0.80
     rect_line = [left, bottom, width, height]
@@ -127,7 +127,6 @@ def draw_box_plot(datas, labels, sub_dirs, num_containers, log, ylim):
     hB.set_visible(False)
     hR.set_visible(False)
     plt.savefig(labels['saveFile'])
-#    plt.show()
 
 
 def setBoxColors(bp):
@@ -151,7 +150,7 @@ def plt_memory_allocation(root):
     sub_dirs = {"CPU Scheduling": 'CPU', "Both Scheduling": 'both'}
     datas = fetch_am_messages(root, sub_dirs, "configure memory", 4, 1000, 1000)
     labels = {"x": "Executor Index", "y": 'Configured Memory (MB)', "saveFile": root+"/ConfigMem.pdf"}
-    ylim = {'bottom': 1050, 'top': 1450}
+    ylim = {'bottom': 950, 'top': 1350}
     draw_box_plot(datas, labels, list(sub_dirs.keys()), 4, False, ylim)
 
 
