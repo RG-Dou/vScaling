@@ -1,24 +1,22 @@
 #!/usr/bin/env bash
-#APP_DIR="$(dirname $(pwd))"
-#
-#function main(){
-##    mem=$1
-#    echo "$mem"
-#}
-#mem_list="500 750 1000 1250 1500 1750 2000"
-#for mem in $mem_list; do
-#    main $mem
-#done
 
-#${APP_DIR}/testbed_1.0.0/target/bin/kill-all.sh
+RESULT="$(dirname $(dirname $(pwd)))/tools/results/effect"
 
-#mem=333
-
-#cp -rf /home/drg/projects/hadoop/hadoop-verticalScaling/hadoop-dist/target/hadoop-3.3.0-SNAPSHOT/logs/userlogs/* /home/drg/tools/
-#
-#sed -ri "s|(cluster-manager.container.memory.mb=)[0-9]*|cluster-manager.container.memory.mb=$mem|" ../testbed_1.0.0/src/main/config/nexmark-q1.properties
-python draw_groundTruth.py /hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/logs/userlogs/
-mem=1
-echo "$mem"
-let mem=2
-echo "$mem"
+COUNT=5
+while [ $COUNT -gt 0 ] ;
+do
+  echo $COUNT
+  let COUNT=COUNT-1
+  #msg=`python python/check_error.py $RESULT/$1/both`
+  msg='error'
+  echo $msg
+  if [ $msg == 'error' ]
+  then
+#    bash run-module.sh 1 'both' $1
+#    python -c 'import time; time.sleep(10)'
+    echo 'try again'
+  else
+    echo 'successful'
+  #  break
+  fi
+done
