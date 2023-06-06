@@ -1,5 +1,5 @@
 CUR_DIR=`pwd`
-ROOT="$(dirname $(dirname $(pwd)))"
+ROOT="$(dirname $(dirname $(dirname $(pwd))))"
 RESULT=$ROOT/tools/results
 mkdir $RESULT
 echo $RESULT
@@ -11,4 +11,4 @@ cd $CUR_DIR || exit
 bash run-app.sh $1 default
 bash run-app.sh $1 elasticutor
 cd python || exit
-python draw_comp.py $RESULT/$1
+python ../python/draw_comp.py $RESULT/$1
