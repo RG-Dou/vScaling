@@ -8,10 +8,10 @@ job=1
 CPU_SWITCH=$1
 MEM_SWITCH=$2
 ARRIVAL_SWITCH=$3
-Hadoop_Dir="/home/drg/projects/work2/hadoop-dir/Hadoop-YarnVerticalScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/"
+Hadoop_Dir="/home/drg/projects/work2/vScaling/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/"
 APP_DIR="$(dirname $(pwd))"
 
-HOST="giraffe"
+HOST="localhost"
 
 
 function runApp() {
@@ -20,7 +20,7 @@ function runApp() {
 
 function killApp() {
 	kill -9 $(jps | grep SSERealRateGenerator | awk '{print $1}')
-	~/cluster/yarn/bin/yarn application -kill ${appid}
+	$Hadoop_Dir/bin/yarn application -kill ${appid}
 	~/tools/zookeeper/bin/zkCli.sh deleteall /app-stock-exchange-861
 	cp -rf ${Hadoop_Dir}/logs/userlogs/* /home/drg/results/
 }
@@ -55,9 +55,9 @@ cd target
 
 if [ $isupload == 1 ]
 then
-  ~/cluster/yarn/bin/hdfs dfs -rm  hdfs://${HOST}:9000/testbed/*-dist.tar.gz
-  ~/cluster/yarn/bin/hdfs dfs -mkdir hdfs://${HOST}:9000/testbed
-  ~/cluster/yarn/bin/hdfs dfs -put  *-dist.tar.gz hdfs://${HOST}:9000/testbed
+  $Hadoop_Dir/bin/hdfs dfs -rm  hdfs://${HOST}:9000/testbed/*-dist.tar.gz
+  $Hadoop_Dir/bin/hdfs dfs -mkdir hdfs://${HOST}:9000/testbed
+  $Hadoop_Dir/bin/hdfs dfs -put  *-dist.tar.gz hdfs://${HOST}:9000/testbed
 fi
 
 tar -zvxf *-dist.tar.gz
