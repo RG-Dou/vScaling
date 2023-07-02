@@ -1,4 +1,4 @@
-Root_Dir="$(dirname $(dirname $(pwd)))"
+Root_Dir="$(dirname $(dirname $(dirname $(pwd))))"
 Hadoop_Dir=$Root_Dir/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT
 Tool_Dir=$Root_Dir/tools
 

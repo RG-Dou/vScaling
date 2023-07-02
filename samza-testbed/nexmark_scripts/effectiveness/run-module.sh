@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-Root_Dir="$(dirname $(dirname $(pwd)))"
+Root_Dir="$(dirname $(dirname $(dirname $(pwd))))"
 APP_DIR=$Root_Dir/samza-testbed
 Hadoop_Dir=$Root_Dir/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT
 Tool_Dir=$Root_Dir/tools
