@@ -30,6 +30,10 @@ public class KafkaAuctionGenerator {
     private ZipfGenerator zipfGenerator;
 
     public KafkaAuctionGenerator(String input, String BROKERS, int rate, int cycle, int hotSellersRatio, int base) {
+        this(input, BROKERS, rate, cycle, hotSellersRatio, base, 100)
+    }
+
+    public KafkaAuctionGenerator(String input, String BROKERS, int rate, int cycle, int hotSellersRatio, int base, int stateSize) {
         Properties props = new Properties();
         props.put("bootstrap.servers", BROKERS);
         props.put("client.id", "ProducerExample");
@@ -42,6 +46,8 @@ public class KafkaAuctionGenerator {
         this.cycle = cycle;
         this.base = base;
         nexmarkConfiguration.hotSellersRatio = hotSellersRatio;
+        nexmarkConfiguration.avgAuctionByteSize = stateSize * 100;
+        System.out.println("-------- state size: " + stateSize * 100);
         config = new GeneratorConfig(nexmarkConfiguration, 1, 1000L, 0, 1);
         zipfGenerator = new ZipfGenerator(10000, 1);
     }
@@ -134,8 +140,10 @@ public class KafkaAuctionGenerator {
         int cycle = params.getInt("cycle", 360);
         int hotSellersRatio = params.getInt("hotSellersRatio", 1);
         int base = params.getInt("base", 0);
+        int stateSize = params.getInt("state", 100);
 
-        new KafkaAuctionGenerator(TOPIC, BROKERS, rate, cycle, hotSellersRatio, base).generate();
+        new KafkaAuctionGenerator(TOPIC, BROKERS, rate, cycle, hotSellersRatio, base, stateSize).generate();
+//        new KafkaAuctionGenerator(TOPIC, BROKERS, rate, cycle, hotSellersRatio, base).generate();
     }
 }
 
