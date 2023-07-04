@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 Hadoop_Dir="/home/drg/projects/work2/vScaling/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/"
 Tool_Dir="/home/drg/projects/work2/vScaling/tools/"
-APP_DIR="$(dirname $(pwd))"
+APP_DIR="$(dirname $(dirname $(pwd)))"
 
 IS_COMPILE=1
 HOST="localhost"
