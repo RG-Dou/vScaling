@@ -478,8 +478,24 @@ public class VerticalScaling extends StreamSwitch {
         }
     }
 
+    private boolean memorySaving(Examiner examiner){
+        String container2 = "000002";
+        if (currentTimeIndex > 6000 && currentTimeIndex % 1200 == 0) {
+            int configMem = examiner.state.getMemConfig().get(container2);
+            int configCore = examiner.state.getCPUConfig().get(container2);
+            int newMem = configMem/2;
+            System.out.println("currentTimeIndex: " + currentTimeIndex + ", mem: " + newMem);
+            Resource target2 = Resource.newInstance(newMem, configCore);
+            shrinks.put(container2, target2);
+            return true;
+        }
+        return false;
+    }
+
 
     private boolean diagnose(Examiner examiner, long timeIndex) {
+        if (cpuAlgorithmn.equals("memorySaving"))
+            return memorySaving(examiner);
         System.out.println("cpu algorithm: " + cpuAlgorithmn);
         System.out.println("last time: " + lastTime);
         if (cpuAlgorithmn.equals("default")) {
