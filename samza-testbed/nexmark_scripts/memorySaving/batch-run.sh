@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APPS="1"
+APPS="1 2"
 CORES="2 4 6 8"
 
 for APP in $APPS; do

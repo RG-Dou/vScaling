@@ -105,7 +105,7 @@ function killApp() {
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
-    cp -rf ${Hadoop_Dir}/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/logs/userlogs/* /home/drg/results/
+    cp -rf ${Hadoop_Dir}/logs/userlogs/* /home/drg/results/
 }
 
 function killGenerator() {
