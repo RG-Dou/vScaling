@@ -30,7 +30,7 @@ public class KafkaAuctionGenerator {
     private ZipfGenerator zipfGenerator;
 
     public KafkaAuctionGenerator(String input, String BROKERS, int rate, int cycle, int hotSellersRatio, int base) {
-        this(input, BROKERS, rate, cycle, hotSellersRatio, base, 100)
+        this(input, BROKERS, rate, cycle, hotSellersRatio, base, 100);
     }
 
     public KafkaAuctionGenerator(String input, String BROKERS, int rate, int cycle, int hotSellersRatio, int base, int stateSize) {
