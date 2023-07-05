@@ -490,11 +490,6 @@ public class VerticalScaling extends StreamSwitch {
             expands.put(container2, target2);
             memorySavingCount += 1;
             return true;
-        } else {
-            int newMem = 1500;
-            int configCore = examiner.state.getCPUConfig().get(container2);
-            Resource target2 = Resource.newInstance(newMem, configCore);
-            shrinks.put(container2, target2);
         }
         return false;
     }
