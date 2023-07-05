@@ -10,6 +10,7 @@ CYCLE=300
 BASE=$2
 RATE=1000
 CORE=$3
+Policy=$4
 
 bash $Tool_Dir/script/cleanKafka.sh
 
@@ -42,6 +43,7 @@ function clearEnv() {
 
 function configAppSrc() {
     sed -ri "s|(cluster-manager.container.cpu.cores=)[0-9]*|cluster-manager.container.cpu.cores=$CORE|" ${APP_DIR}/testbed_1.0.0/src/main/config/nexmark-q${APP}-memorySaving.properties
+    sed -i "s/^\(verticalscaling.cpu.algorithm\)=\(default\|memorySaving\)/\1=$Policy/" ${APP_DIR}/testbed_1.0.0/src/main/config/nexmark-q${APP}-memorySaving.properties
 }
 
 function compile() {

@@ -6,7 +6,8 @@ function cores(){
 
   for APP in $APPS; do
     for CORE in $CORES; do
-        bash single-run.sh $APP 10000 $CORE
+        bash single-run.sh $APP 10000 $CORE "default"
+        bash single-run.sh $APP 10000 $CORE "memorySaving"
     done
   done
 }
