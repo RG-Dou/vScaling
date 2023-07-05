@@ -37,6 +37,7 @@ public class VerticalScaling extends StreamSwitch {
     private final boolean processedArrivalRateSwitch;
     private final String cpuAlgorithmn;
     private final int minMemSize = 600;
+    private int memorySavingCount = -1;
     private String lastTime = "cpu";
     private Random rnd;
 
@@ -480,13 +481,14 @@ public class VerticalScaling extends StreamSwitch {
 
     private boolean memorySaving(Examiner examiner){
         String container2 = "000002";
-        if (currentTimeIndex > 6000 && currentTimeIndex % 1200 == 0) {
+        if (currentTimeIndex > 6000 && (currentTimeIndex - 6000) / 1200 > memorySavingCount) {
             int configMem = examiner.state.getMemConfig().get(container2);
             int configCore = examiner.state.getCPUConfig().get(container2);
             int newMem = configMem/2;
             System.out.println("currentTimeIndex: " + currentTimeIndex + ", mem: " + newMem);
             Resource target2 = Resource.newInstance(newMem, configCore);
             shrinks.put(container2, target2);
+            memorySavingCount += 1;
             return true;
         }
         return false;
