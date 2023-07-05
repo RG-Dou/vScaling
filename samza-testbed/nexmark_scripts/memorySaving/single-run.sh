@@ -11,7 +11,7 @@ BASE=$2
 RATE=1000
 CORE=$3
 
-#bash $Tool_Dir/script/cleanKafka.sh
+bash $Tool_Dir/script/cleanKafka.sh
 
 function clearEnv() {
     ~/tools/kafka/bin/kafka-topics.sh --delete --zookeeper ${HOST}:2181 --topic auctions
