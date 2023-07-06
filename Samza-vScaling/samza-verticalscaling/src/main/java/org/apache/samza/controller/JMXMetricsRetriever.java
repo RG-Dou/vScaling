@@ -760,7 +760,7 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
         }
         metrics.put("Freshed", partitionFreshed);
 
-        LOG.info("Retrieved Metrics: " + metrics);
+//        LOG.info("Retrieved Metrics: " + metrics);
 
         return metrics;
     }
