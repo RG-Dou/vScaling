@@ -108,6 +108,7 @@ function killApp() {
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q3-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q5-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q8-1
+    ~/tools/zookeeper/bin/zkCli.sh deleteall /brokers/ids/0
     cp -rf ${Hadoop_Dir}/logs/userlogs/* /home/drg/results/
 }
 
