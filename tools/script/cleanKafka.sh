@@ -5,7 +5,7 @@ Tool_Dir=$Root_Dir/tools
 $Tool_Dir/kafka/bin/kafka-server-stop.sh
 python -c 'import time; time.sleep(5)'
 $Tool_Dir/zookeeper/bin/zkServer.sh stop
-python -c 'import time; time.sleep(5)'
+python -c 'import time; time.sleep(25)'
 rm -rf /tmp/kafka-logs/*
 rm -rf $Tool_Dir/kafka/logs/*
 rm nohup.out
