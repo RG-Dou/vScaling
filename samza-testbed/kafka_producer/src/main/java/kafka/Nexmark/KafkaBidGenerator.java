@@ -148,7 +148,11 @@ public class KafkaBidGenerator {
 //                        BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
 //        ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, nextId,
 //                BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
-        long key = zipfGenerator.next();
+
+        //For skewness
+//        long key = zipfGenerator.next();
+        //For general testing
+        long key = new Random(nextId).nextLong();
         ProducerRecord<Long, String> newRecord = new ProducerRecord<Long, String>(TOPIC, key,
                 BidGenerator.nextBid(nextId, rnd, eventTimestamp, config).toString());
 
