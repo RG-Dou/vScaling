@@ -1,0 +1,40 @@
+2023-07-13 13:34:43.098 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the key serde for stream en-wikipedia. Keys will not be (de)serialized
+2023-07-13 13:34:43.102 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the value serde for stream en-wikipedia. Values will not be (de)serialized
+2023-07-13 13:34:43.108 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the key serde for stream en-wiktionary. Keys will not be (de)serialized
+2023-07-13 13:34:43.108 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the value serde for stream en-wiktionary. Values will not be (de)serialized
+2023-07-13 13:34:43.108 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the key serde for stream en-wikinews. Keys will not be (de)serialized
+2023-07-13 13:34:43.108 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the value serde for stream en-wikinews. Values will not be (de)serialized
+2023-07-13 13:34:43.108 [main] ApplicationDescriptorImpl [INFO] Using NoOpSerde as the key serde for stream wikipedia-stats. Keys will not be (de)serialized
+2023-07-13 13:34:43.121 [main] LocalApplicationRunner [INFO] Not BATCH mode and hence not generating run id
+2023-07-13 13:34:43.136 [ZkClient-EventThread-22-localhost:2181] ZkEventThread [INFO] Starting ZkClient event thread.
+2023-07-13 13:34:43.139 [main] ZooKeeper [INFO] Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+2023-07-13 13:34:43.139 [main] ZooKeeper [INFO] Client environment:host.name=eagle-sane
+2023-07-13 13:34:43.139 [main] ZooKeeper [INFO] Client environment:java.version=1.8.0_191
+2023-07-13 13:34:43.139 [main] ZooKeeper [INFO] Client environment:java.vendor=Oracle Corporation
+2023-07-13 13:34:43.139 [main] ZooKeeper [INFO] Client environment:java.home=/home/samza/kit/jdk/jre
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:java.class.path=base-lib-pathing.jar:runtime-framework-resources-pathing.jar
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:java.io.tmpdir=/home/drg/projects/work2/vScaling/hello-samza/deploy/samza/tmp
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:java.compiler=<NA>
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:os.name=Linux
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:os.arch=amd64
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:os.version=4.15.0-208-generic
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:user.name=drg
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:user.home=/home/drg
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Client environment:user.dir=/home/drg/projects/work2/vScaling/hello-samza
+2023-07-13 13:34:43.140 [main] ZooKeeper [INFO] Initiating client connection, connectString=localhost:2181 sessionTimeout=30000 watcher=org.I0Itec.zkclient.ZkClient@1c481ff2
+2023-07-13 13:34:43.152 [main] ZkClient [INFO] Waiting for keeper state SyncConnected
+2023-07-13 13:34:43.160 [main-SendThread(localhost:2181)] ClientCnxn [INFO] Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)
+2023-07-13 13:34:43.167 [main-SendThread(localhost:2181)] ClientCnxn [WARN] Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method) ~[?:1.8.0_191]
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717) ~[?:1.8.0_191]
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:361) ~[zookeeper-3.4.6.jar:3.4.6-1569965]
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1081) [zookeeper-3.4.6.jar:3.4.6-1569965]
+2023-07-13 13:34:44.276 [main-SendThread(localhost:2181)] ClientCnxn [INFO] Opening socket connection to server localhost/127.0.0.1:2181. Will not attempt to authenticate using SASL (unknown error)
+2023-07-13 13:34:44.277 [main-SendThread(localhost:2181)] ClientCnxn [WARN] Session 0x0 for server null, unexpected error, closing socket connection and attempting reconnect
+java.net.ConnectException: Connection refused
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method) ~[?:1.8.0_191]
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717) ~[?:1.8.0_191]
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:361) ~[zookeeper-3.4.6.jar:3.4.6-1569965]
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1081) [zookeeper-3.4.6.jar:3.4.6-1569965]
