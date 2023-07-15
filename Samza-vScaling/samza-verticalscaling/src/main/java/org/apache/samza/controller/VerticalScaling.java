@@ -515,10 +515,7 @@ public class VerticalScaling extends StreamSwitch {
             resourceChecker.resizeOpen(mapInit);
             resourceChecker.monitorOpen(mapInit);
 
-            int x1 = param[0];
-            int x2 = param[1];
-
-            Resource target = Resource.newInstance(4 * 1024, 1);
+            Resource target = Resource.newInstance(param[1] * 1024, params[0]);
             Map<String, Resource> mapTmp = new HashMap<String, Resource>();
             mapTmp.put(container2, target);
 
@@ -528,7 +525,7 @@ public class VerticalScaling extends StreamSwitch {
             long end = System.currentTimeMillis();
             double duration = (end - start) * 1.0 / 1000;
             String file = "/home/drg/projects/work2/result-ase";
-            String result = "to resource combination: " + param[0] + " " + param[1] + "; duration: " + duration + "s";
+            String result = "to resource combination: " + param[0] + " cores, " + param[1] + "Gi; duration: " + duration + "s";
             outputRes(file, result);
         }
 
