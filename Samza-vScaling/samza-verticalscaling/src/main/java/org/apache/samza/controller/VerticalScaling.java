@@ -11,6 +11,10 @@ import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scala.Int;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 import java.util.*;
@@ -494,10 +498,70 @@ public class VerticalScaling extends StreamSwitch {
         return false;
     }
 
+    private boolean overhead(Examiner examiner){
+        String container2 = "000002";
+        int[][] params = {
+                {1, 4},
+                {2, 8},
+                {4, 16},
+                {8, 32},
+                {16, 60}
+        };
+
+        for (int[] param : params) {
+            Resource targetInit = Resource.newInstance(4 * 1024, 1);
+            Map<String, Resource> mapInit = new HashMap<String, Resource>();
+            mapInit.put(container2, targetInit);
+            resourceChecker.resizeOpen(mapInit);
+            resourceChecker.monitorOpen(mapInit);
+
+            int x1 = param[0];
+            int x2 = param[1];
+
+            Resource target = Resource.newInstance(4 * 1024, 1);
+            Map<String, Resource> mapTmp = new HashMap<String, Resource>();
+            mapTmp.put(container2, target);
+
+            long start = System.currentTimeMillis();
+            resourceChecker.resizeOpen(mapTmp);
+            resourceChecker.monitorOpen(mapTmp);
+            long end = System.currentTimeMillis();
+            double duration = (end - start) * 1.0 / 1000;
+            String file = "/home/drg/projects/work2/result-ase";
+            String result = "to resource combination: " + param[0] + " " + param[1] + "; duration: " + duration + "s";
+            outputRes(file, result);
+        }
+
+        return false;
+    }
+
+
+
+    private void outputRes(String fileName, String str){
+
+        try {
+            // 创建 BufferedWriter 对象
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+
+            // 写入字符串到文件
+            writer.write(str);
+            writer.newLine(); // 可选：写入换行符
+
+            // 关闭 writer
+            writer.close();
+
+            System.out.println("String appended to file successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
 
     private boolean diagnose(Examiner examiner, long timeIndex) {
         if (cpuAlgorithmn.equals("memorySaving"))
             return memorySaving(examiner);
+        if (cpuAlgorithmn.equals("overhead"))
+            return overhead(examiner);
         System.out.println("cpu algorithm: " + cpuAlgorithmn);
         System.out.println("last time: " + lastTime);
         if (cpuAlgorithmn.equals("default")) {

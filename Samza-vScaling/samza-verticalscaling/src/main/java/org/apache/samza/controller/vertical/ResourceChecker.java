@@ -24,6 +24,9 @@ public class ResourceChecker implements Runnable {
     private final String cgroupDir = "/sys/fs/cgroup/memory/yarn/";
     private final String memConfig = "memory.limit_in_bytes";
     private final String memUsed = "memory.usage_in_bytes";
+
+    private final String cgroupDirCpu = "/sys/fs/cgroup/cpu/yarn/";
+    private final String cpuConfig = "cpu.cfs_quota_us";
     private final int retries = 10000;
 
     public enum status {
@@ -100,6 +103,52 @@ public class ResourceChecker implements Runnable {
         }
     }
 
+    public void resizeOpen(Map<String, Resource> containers){
+        for (Map.Entry<String, Resource> entry : containers.entrySet()){
+            String containerId = getContainerIdForYarn(entry.getKey());
+            listener.containerResize(containerId, entry.getValue().getVirtualCores(), entry.getValue().getMemory());
+        }
+    }
+
+    public void monitorOpen(Map<String, Resource> containers){
+        while(containers.size() > 0) {
+            Map<String, Resource> allMetrics = clientMetrics.getAllMetrics();
+            for (Map.Entry<String, Resource> entry : containers.entrySet()) {
+                String containerId = entry.getKey();
+                Resource target = entry.getValue();
+                if (!allMetrics.containsKey(containerId))
+                    continue;
+                Resource currentResource = allMetrics.get(containerId);
+                System.out.println("current resource: " + currentResource.toString() + ", config resource: " + target.toString());
+                if (target.equals(currentResource)) {
+                    containers.remove(containerId);
+                    LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
+                }
+            }
+        }
+    }
+
+    public void monitorFileOpen(Map<String, Resource> containers){
+        Map<String, Resource> allMetrics = clientMetrics.getAllMetrics();
+        for (Map.Entry<String, Resource> entry : containers.entrySet()) {
+            String containerId = entry.getKey();
+            Resource target = entry.getValue();
+
+            String containerIdFull = clientMetrics.getFullContainerId(containerId);
+            String configFile = cgroupDir + containerIdFull + "/" + memConfig;
+            String configFileCpu = cgroupDirCpu + containerIdFull + "/" + cpuConfig;
+
+            while (!checkMemConsistency(configFile, target.getMemory()) || !checkCoreConsistency(configFileCpu, target.getVirtualCores())){
+                ;
+            }
+
+            if (target.equals(currentResource)) {
+                containers.remove(containerId);
+                LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
+            }
+        }
+    }
+
     private void checkAndAdjust(String containerId, int targetMem){
         String containerIdFull = clientMetrics.getFullContainerId(containerId);
         String configFile = cgroupDir + containerIdFull + "/" + memConfig;
@@ -128,6 +177,16 @@ public class ResourceChecker implements Runnable {
     private boolean checkMemConsistency(String fileName, int targetMem){
         Long cgroupMem = Long.parseLong(getCGroupParam(fileName)) / 1024 / 1024;
         if(cgroupMem == targetMem) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean checkCoreConsistency(String fileName, int targetCore){
+        Long cgroupCores = Long.parseLong(getCGroupParam(fileName));
+        System.out.println("cgroup core is " + cgroupCores + ", target core is: " + targetCore);
+        if(cgroupCores  == targetCore * 100000) {
             return true;
         } else {
             return false;
