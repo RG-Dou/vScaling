@@ -515,7 +515,7 @@ public class VerticalScaling extends StreamSwitch {
             resourceChecker.resizeOpen(mapInit);
             resourceChecker.monitorOpen(mapInit);
 
-            Resource target = Resource.newInstance(param[1] * 1024, params[0]);
+            Resource target = Resource.newInstance(param[1] * 1024, param[0]);
             Map<String, Resource> mapTmp = new HashMap<String, Resource>();
             mapTmp.put(container2, target);
 

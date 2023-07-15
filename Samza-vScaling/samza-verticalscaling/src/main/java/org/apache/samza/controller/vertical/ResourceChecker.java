@@ -141,11 +141,8 @@ public class ResourceChecker implements Runnable {
             while (!checkMemConsistency(configFile, target.getMemory()) || !checkCoreConsistency(configFileCpu, target.getVirtualCores())){
                 ;
             }
-
-            if (target.equals(currentResource)) {
-                containers.remove(containerId);
-                LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
-            }
+            containers.remove(containerId);
+            LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
         }
     }
 
