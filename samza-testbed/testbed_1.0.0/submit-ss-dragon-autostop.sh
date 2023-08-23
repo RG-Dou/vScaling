@@ -9,13 +9,14 @@ CPU_SWITCH=$1
 MEM_SWITCH=$2
 ARRIVAL_SWITCH=$3
 Hadoop_Dir="/home/drg/projects/work2/vScaling/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT/"
+Tool_Dir="/home/drg/projects/work2/vScaling/tools/"
 APP_DIR="$(dirname $(pwd))"
 
 HOST="localhost"
 
 
 function runApp() {
-	java -cp /home/drg/projects/work2/samza-benchmark/samza-testbed/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.SSE.SSERealRateGenerator -host localhost:9092 -topic stock_sb -fp /home/drg/tools/SSE_data/sb-opening-50ms.txt -interval 50 &
+	java -cp ${APP_DIR}/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.SSE.SSERealRateGenerator -host localhost:9092 -topic stock_sb -fp /home/drg/tools/SSE_data/sb-opening-50ms.txt -interval 50 &
 }
 
 function killApp() {
@@ -28,7 +29,7 @@ function killApp() {
 
 
 
-~/tools/cleanKafka.sh
+bash $Tool_Dir/script/cleanKafka.sh
 #Check whether they are equal
 if [ $deletechanelog == 1 ]
 then
