@@ -119,7 +119,8 @@ public class ResourceChecker implements Runnable {
                 if (!allMetrics.containsKey(containerId))
                     continue;
                 Resource currentResource = allMetrics.get(containerId);
-                System.out.println("current resource: " + currentResource.toString() + ", config resource: " + target.toString());
+                long time = System.currentTimeMillis();
+                System.out.println(time + ", current resource: " + currentResource.toString() + ", config resource: " + target.toString());
                 if (target.equals(currentResource)) {
                     containers.remove(containerId);
                     LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
@@ -137,9 +138,14 @@ public class ResourceChecker implements Runnable {
             String containerIdFull = clientMetrics.getFullContainerId(containerId);
             String configFile = cgroupDir + containerIdFull + "/" + memConfig;
             String configFileCpu = cgroupDirCpu + containerIdFull + "/" + cpuConfig;
+            System.out.println("cpu file: " + configFileCpu);
 
             while (!checkMemConsistency(configFile, target.getMemory()) || !checkCoreConsistency(configFileCpu, target.getVirtualCores())){
-                ;
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             containers.remove(containerId);
             LOG.info("Container " + containerId + " adjusted successfully. Target resource " + target.toString());
@@ -183,7 +189,7 @@ public class ResourceChecker implements Runnable {
     private boolean checkCoreConsistency(String fileName, int targetCore){
         Long cgroupCores = Long.parseLong(getCGroupParam(fileName));
         System.out.println("cgroup core is " + cgroupCores + ", target core is: " + targetCore);
-        if(cgroupCores  == targetCore * 100000) {
+        if(cgroupCores  == targetCore * 3200000) {
             return true;
         } else {
             return false;

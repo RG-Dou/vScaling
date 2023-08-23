@@ -520,8 +520,9 @@ public class VerticalScaling extends StreamSwitch {
             mapTmp.put(container2, target);
 
             long start = System.currentTimeMillis();
+            System.out.println(start + ", start to " +param[0] + " cores, " + param[1] + "Gi;");
             resourceChecker.resizeOpen(mapTmp);
-            resourceChecker.monitorOpen(mapTmp);
+            resourceChecker.monitorFileOpen(mapTmp);
             long end = System.currentTimeMillis();
             double duration = (end - start) * 1.0 / 1000;
             String file = "/home/drg/projects/work2/result-ase";
