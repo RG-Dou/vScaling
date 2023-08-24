@@ -35,6 +35,7 @@ CHILD_DIR=${16}
 
 
 bash $Tool_Dir/script/cleanKafka.sh
+$Tool_Dir/zookeeper/bin/zkCli.sh delete /brokers/ids/0
 
 function delete_topic() {
     $Topic_shell --delete --zookeeper ${HOST}:2181 --topic $1
