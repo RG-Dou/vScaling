@@ -4,6 +4,8 @@ Tool_Dir=$Root_Dir/tools
 
 $Tool_Dir/kafka/bin/kafka-server-stop.sh
 python -c 'import time; time.sleep(5)'
+$Tool_Dir/kafka/bin/kafka-server-stop.sh
+python -c 'import time; time.sleep(5)'
 $Tool_Dir/zookeeper/bin/zkCli.sh delete /brokers/ids/0
 $Tool_Dir/zookeeper/bin/zkServer.sh stop
 python -c 'import time; time.sleep(25)'
