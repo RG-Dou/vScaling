@@ -502,9 +502,9 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
         4) Even JMX metrics are not correct after migration?
      */
 
-    HashMap<String, Long> partitionProcessed, partitionArrived, executorPGMajFault;
+    HashMap<String, Long> partitionProcessed, partitionArrived, executorPGMajFault, executorCpuCGUsage;
     HashMap<String, Resource> executorResources;
-    HashMap<String, HashMap<String, Long>> executorCpuStat;
+    HashMap<String, HashMap<String, Long>> executorCpuCGStat;
     HashMap<String, Double> executorUtilization, executorServiceRate, executorMemoryUsed,
             executorHeapCommitted, executorHeapUsed, executorNonHeapCommitted, executorNonHeapUsed, executorCpuUsage;
     HashMap<String, Boolean> executorRunning;
@@ -563,7 +563,8 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
         executorMemoryUsed.clear();
         executorResources.clear();
         executorPGMajFault.clear();
-        executorCpuStat.clear();
+        executorCpuCGStat.clear();
+        executorCpuCGUsage.clear();
         executorHeapUsed.clear();
         executorHeapCommitted.clear();
         executorNonHeapUsed.clear();
@@ -580,7 +581,8 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
         metrics.put("MemUsed", executorMemoryUsed);
         metrics.put("Resources", executorResources);
         metrics.put("PGMajFault", executorPGMajFault);
-        metrics.put("CpuStat", executorCpuStat);
+        metrics.put("CpuCGStat", executorCpuCGStat);
+        metrics.put("CpuCGUsage", executorCpuCGUsage);
         metrics.put("HeapUsed", executorHeapUsed);
         metrics.put("HeapCommitted", executorHeapCommitted);
         metrics.put("NonHeapUsed", executorNonHeapUsed);
@@ -754,10 +756,16 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
             executorPGMajFault.put(ent.getKey(), ent.getValue());
         }
 
-        HashMap<String, HashMap<String, Long>> cpuStat = yarnMetics.getCpuMetrics();
+        HashMap<String, HashMap<String, Long>> cpuStat = yarnMetics.getCpuCGStat();
         for(Map.Entry<String, HashMap<String, Long>> ent : cpuStat.entrySet()){
-            executorCpuStat.put(ent.getKey(), ent.getValue());
+            executorCpuCGStat.put(ent.getKey(), ent.getValue());
         }
+
+        HashMap<String, Long> cpuCGUsage = yarnMetics.getCpuCGUsage();
+        for(Map.Entry<String, Long> ent : cpuCGUsage.entrySet()){
+            executorCpuCGUsage.put(ent.getKey(), ent.getValue());
+        }
+
         metrics.put("Freshed", partitionFreshed);
 
 //        LOG.info("Retrieved Metrics: " + metrics);

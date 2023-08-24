@@ -98,7 +98,13 @@ public class VerticalScaling extends StreamSwitch {
         Map<String, Long> pgMajFault = (Map<String, Long>) (metrics.get("PGMajFault"));
 
 //        System.out.println("Model, time " + timeIndex  + ", executor heap used: " + executorHeapUsed);
-        System.out.println("Model, time " + currentTimeIndex + ", executor pg major fault: " + pgMajFault);
+        System.out.println("Model, time " + currentTimeIndex + ", PageFaults: " + pgMajFault);
+
+        Map<String, Long> cpuCGUsage = (Map<String, Long>) (metrics.get("CpuCGUsage"));
+        System.out.println("Model, time " + currentTimeIndex + ", CpuCGUsage: " + cpuCGUsage);
+
+        Map<String, HashMap<String, Long>> cpuCGStat = (Map<String, HashMap<String, Long>>) (metrics.get("CpuCGStat"));
+        System.out.println("Model, time " + currentTimeIndex + ", CpuCGStat: " + cpuCGStat);
 
         adjustCpuUsage(executorCpuUsage, executorResources);
 
@@ -213,7 +219,7 @@ public class VerticalScaling extends StreamSwitch {
 
 
     private Map<String, Integer> largestReminder(Map<String, Double> weights, int total){
-        System.out.println("weights: " + weights);
+//        System.out.println("weights: " + weights);
         double sumWeights = 0.0;
         for(Double weight : weights.values()){
             sumWeights+=weight;
@@ -355,7 +361,7 @@ public class VerticalScaling extends StreamSwitch {
             weights = examiner.model.getArrivalRateInDelay();
         else
             weights = examiner.model.getArrivalRate();
-        System.out.println(weights);
+//        System.out.println(weights);
         Map<String, Integer> cpuConfig = examiner.state.getCPUConfig();
         int totalCPU = getTotalCPU(examiner);
         if (totalCPU < cpuConfig.size()){
@@ -382,7 +388,7 @@ public class VerticalScaling extends StreamSwitch {
                 shrinks.put(executor, target);
             }
         }
-        System.out.println("targets: "+cpuQuotas);
+//        System.out.println("targets: "+cpuQuotas);
         return flag;
     }
 
@@ -431,10 +437,10 @@ public class VerticalScaling extends StreamSwitch {
             }
         }
 
-        System.out.println("Latency: " + latencies);
-        System.out.println("Valid Ratios: " + validRates);
-        System.out.println("Poor: " + poor);
-        System.out.println("Rich: " + rich);
+//        System.out.println("Latency: " + latencies);
+//        System.out.println("Valid Ratios: " + validRates);
+//        System.out.println("Poor: " + poor);
+//        System.out.println("Rich: " + rich);
 
         if(rich.size() == 0 && poor.size() > 1){
             String takerNode = poor.get(0);
@@ -444,7 +450,7 @@ public class VerticalScaling extends StreamSwitch {
                 index --;
                 giverNode = poor.get(index);
             }
-            System.out.println("giver: " + giverNode + ", config mem: " + configMem.get(giverNode));
+//            System.out.println("giver: " + giverNode + ", config mem: " + configMem.get(giverNode));
             if(takerNode.equals(giverNode))
                 return false;
             Resource resource1 = getTargetResource(examiner, takerNode, blockSize, 0);
@@ -560,8 +566,8 @@ public class VerticalScaling extends StreamSwitch {
             return memorySaving(examiner);
         if (cpuAlgorithmn.equals("overhead"))
             return overhead(examiner);
-        System.out.println("cpu algorithm: " + cpuAlgorithmn);
-        System.out.println("last time: " + lastTime);
+//        System.out.println("cpu algorithm: " + cpuAlgorithmn);
+//        System.out.println("last time: " + lastTime);
         if (cpuAlgorithmn.equals("default")) {
             if(lastTime.equals("mem")) {
                 if (cpuSwitch && CPUDiagnose(examiner)) {

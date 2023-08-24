@@ -256,8 +256,8 @@ public class Model {
 
 
         }
-        System.out.println("Model, time " + timeIndex  + " , page fault per cpu: " + pageFaultPerCpu);
-        System.out.println("Model, time " + timeIndex  + " , pRate per cpu: " + pRatePerCpu);
+        System.out.println("Model, time " + timeIndex  + ", page fault per cpu: " + pageFaultPerCpu);
+        System.out.println("Model, time " + timeIndex  + ", pRate per cpu: " + pRatePerCpu);
     }
 
     private double updateModelData(double prPerCpu, double pgFaultPerCpu){

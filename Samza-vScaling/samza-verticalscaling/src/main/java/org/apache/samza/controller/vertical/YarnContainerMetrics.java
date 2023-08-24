@@ -29,6 +29,7 @@ public class YarnContainerMetrics {
     private final String memStat = "memory.stat";
     private final String cgroupCPUDir = "/sys/fs/cgroup/cpu,cpuacct/yarn/";
     private final String cpuStat = "cpuacct.stat";
+    private final String cpuUsage = "cpuacct.usage";
 
     public YarnContainerMetrics(String jobName){
         YarnConfiguration hadoopConfig = new YarnConfiguration();
@@ -159,7 +160,7 @@ public class YarnContainerMetrics {
         return memStat;
     }
 
-    public HashMap<String, HashMap<String, Long>> getCpuMetrics(){
+    public HashMap<String, HashMap<String, Long>> getCpuCGStat(){
         HashMap<String, HashMap<String, Long>> cpuMetrics = new HashMap<>();
         for (Map.Entry<String, String> entry : contaienrIdMap.entrySet()){
             if(entry.getKey() == "000001")
@@ -172,6 +173,18 @@ public class YarnContainerMetrics {
         }
         return cpuMetrics;
 
+    }
+
+    public HashMap<String, Long> getCpuCGUsage(){
+        HashMap<String, Long> cpuMetrics = new HashMap<>();
+        for (Map.Entry<String, String> entry : contaienrIdMap.entrySet()){
+            if(entry.getKey() == "000001")
+                continue;
+            String fileName = cgroupCPUDir + entry.getValue() + "/" + cpuUsage;
+            String stat = getCGroupParam(fileName);
+            cpuMetrics.put(entry.getKey(), Long.parseLong(stat));
+        }
+        return cpuMetrics;
     }
 
 

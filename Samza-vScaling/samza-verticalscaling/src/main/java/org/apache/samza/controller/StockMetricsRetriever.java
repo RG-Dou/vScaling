@@ -777,7 +777,7 @@ public class StockMetricsRetriever implements StreamSwitchMetricsRetriever {
             executorPGMajFault.put(ent.getKey(), ent.getValue());
         }
 
-        HashMap<String, HashMap<String, Long>> cpuStat = yarnMetics.getCpuMetrics();
+        HashMap<String, HashMap<String, Long>> cpuStat = yarnMetics.getCpuCGStat();
         for(Map.Entry<String, HashMap<String, Long>> ent : cpuStat.entrySet()){
             executorCpuStat.put(ent.getKey(), ent.getValue());
         }

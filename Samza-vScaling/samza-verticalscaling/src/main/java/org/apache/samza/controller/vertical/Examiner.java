@@ -56,35 +56,17 @@ public class Examiner{
         model.update(timeIndex, serviceRate, executorMapping);
         //Debug & Statistics
         if(true){
-//            HashMap<String, Double> longtermDelay = new HashMap<>();
-//            for(String executorId: executorMapping.keySet()){
-//                double delay = model.getLongTermDelay(executorId);
-//                longtermDelay.put(executorId, delay);
-//            }
-            System.out.println("Model, time " + timeIndex  + " , Arrival Rate: " + model.executorArrivalRate);
-            System.out.println("Model, time " + timeIndex  + " , processing Rate: " + model.executorProcessingRate);
-            System.out.println("Model, time " + timeIndex  + " , average processing Rate: " + model.avgProcessingRate);
-            System.out.println("Model, time " + timeIndex  + " , average arrival Rate: " + model.avgArrivalRate);
-            System.out.println("Model, time " + timeIndex  + " , Service Rate: " + model.executorServiceRate);
-            System.out.println("Model, time " + timeIndex  + " , Instantaneous Delay: " + model.executorInstantaneousDelay);
-            System.out.println("Model, time " + timeIndex  + " , Processed Arrival Rate: " + model.executorArrivalRateInDelay);
-            System.out.println("Model, time " + timeIndex  + " , Max Major Fault: " + model.maxMPFPerCpu);
-            System.out.println("Model, time " + timeIndex  + " , Valid Rate: " + model.validRate);
-//                System.out.println("Model, time " + timeIndex  + " , Longterm Delay: " + longtermDelay);
-//            System.out.println("Model, time " + timeIndex  + " , Partition Arrival Rate: " + model.substreamArrivalRate);
+            System.out.println("Model, time " + timeIndex  + ", Arrival Rate: " + model.executorArrivalRate);
+            System.out.println("Model, time " + timeIndex  + ", processing Rate: " + model.executorProcessingRate);
+            System.out.println("Model, time " + timeIndex  + ", average processing Rate: " + model.avgProcessingRate);
+            System.out.println("Model, time " + timeIndex  + ", average arrival Rate: " + model.avgArrivalRate);
+            System.out.println("Model, time " + timeIndex  + ", Service Rate: " + model.executorServiceRate);
+            System.out.println("Model, time " + timeIndex  + ", Instantaneous Delay: " + model.executorInstantaneousDelay);
+            System.out.println("Model, time " + timeIndex  + ", Processed Arrival Rate: " + model.executorArrivalRateInDelay);
+            System.out.println("Model, time " + timeIndex  + ", Max Major Fault: " + model.maxMPFPerCpu);
+            System.out.println("Model, time " + timeIndex  + ", Valid Rate: " + model.validRate);
         }
     }
-//    private Map<String, Double> getInstantDelay(){
-//        return model.executorInstantaneousDelay;
-//    }
-//
-//    private Map<String, Double> getLongtermDelay(){
-//        HashMap<String, Double> delay = new HashMap<>();
-//        for(String executor: state.executorMapping.keySet()){
-//            delay.put(executor, model.getLongTermDelay(executor));
-//        }
-//        return delay;
-//    }
 
     public void updateExecutorState(long timeIndex, Map<String, Resource> executorResource, Map<String, Double> executorMemUsed,
                                     Map<String, Double> executorCpuUsage, Map<String, Long> pgMajFault){
