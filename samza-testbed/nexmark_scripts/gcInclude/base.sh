@@ -3,7 +3,8 @@ Root_Dir="$(dirname $(dirname $(dirname $(pwd))))"
 APP_DIR=$Root_Dir/samza-testbed
 Hadoop_Dir=$Root_Dir/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT
 Tool_Dir=$Root_Dir/tools
-Topic_shell=$Tool_Dir/kafka/bin/kafka-topics.sh
+#Topic_shell=$Tool_Dir/kafka/bin/kafka-topics.sh
+Topic_shell=~/tools/kafka/bin/kafka-topics.sh
 DATA_DIR=/data/drg_data/work2/results/
 
 # For running config
