@@ -1,6 +1,6 @@
 # For running config
 IS_COMPILE=1
-HOST="dragon"
+HOST="localhost"
 APP=1
 DURATION=900
 
@@ -28,8 +28,8 @@ function run_base() {
     python -c 'import time; time.sleep(10)'
 }
 
-APPS=(1 2)
-MEMS=(1000 1500 2000 2500 3000 3500)
+APPS=(1)
+MEMS=(3000)
 
 for APP in $APPS; do
   for MEM in $MEMS; do
