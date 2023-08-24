@@ -481,7 +481,8 @@ public class JMXMetricsRetriever implements StreamSwitchMetricsRetriever {
 
         executorResources = new HashMap<>();
         executorPGMajFault = new HashMap<>();
-        executorCpuStat = new HashMap<>();
+        executorCpuCGStat = new HashMap<>();
+        executorCpuCGUsage = new HashMap<>();
         executorMemoryUsed = new HashMap<>();
         executorHeapCommitted = new HashMap<>();
         executorHeapUsed = new HashMap<>();
