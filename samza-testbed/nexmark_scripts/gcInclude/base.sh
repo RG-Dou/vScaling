@@ -108,7 +108,7 @@ function generateAuction() {
 
 function generateBid() {
     echo $RATE
-    java -cp ${APP_DIR}/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.Nexmark.KafkaBidGeneratorEffect \
+    java -cp ${APP_DIR}/kafka_producer/target/kafka_producer-0.0.1-jar-with-dependencies.jar kafka.Nexmark.KafkaBidGenerator \
         -host $BROKER -topic bids -rate $RATE -cycle $CYCLE -base $BASE &
 }
 
@@ -174,9 +174,10 @@ function main(){
     # wait for app start
     runApp
 
+    python -c 'import time; time.sleep(100)'
+
     BROKER=${HOST}:9092
 
-    python -c 'import time; time.sleep(100)'
     if [[ ${APP} == 1 ]] || [[ ${APP} == 5 ]] || [[ ${APP} == 2 ]] || [[ ${APP} == 11 ]];
     then
         for j in {1..1}
