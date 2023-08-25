@@ -1,7 +1,6 @@
 # For running config
 IS_COMPILE=1
 HOST="localhost"
-APP=1
 DURATION=900
 
 # For source config
@@ -28,8 +27,8 @@ function run_base() {
     python -c 'import time; time.sleep(10)'
 }
 
-APPS=(1)
-MEMS=(3000)
+APPS="2"
+MEMS="9000 3000"
 
 for APP in $APPS; do
   for MEM in $MEMS; do
