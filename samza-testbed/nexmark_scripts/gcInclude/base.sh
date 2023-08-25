@@ -147,7 +147,7 @@ function killApp() {
     mkdir -p $path2
 #    rm -rf $Tool_Dir/results/effect/$MODULE
 #    mkdir $Tool_Dir/results/effect/$MODULE
-    cp -rf ${Hadoop_Dir}/logs/userlogs/* $path2
+    cp -rf ${Hadoop_Dir}/logs/userlogs/$app $path2
 }
 
 function killGenerator() {
