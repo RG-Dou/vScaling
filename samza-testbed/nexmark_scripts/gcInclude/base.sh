@@ -3,8 +3,8 @@ Root_Dir="$(dirname $(dirname $(dirname $(pwd))))"
 APP_DIR=$Root_Dir/samza-testbed
 Hadoop_Dir=$Root_Dir/Hadoop-vScaling/hadoop-dist/target/hadoop-3.0.0-SNAPSHOT
 Tool_Dir=$Root_Dir/tools
-#Topic_shell=$Tool_Dir/kafka/bin/kafka-topics.sh
-Topic_shell=~/tools/kafka/bin/kafka-topics.sh
+Topic_shell=$Tool_Dir/kafka/bin/kafka-topics.sh
+#Topic_shell=~/tools/kafka/bin/kafka-topics.sh
 DATA_DIR=/data/drg_data/work2/results/
 
 # For running config
@@ -33,10 +33,6 @@ NUM_EXECUTORS=${14}
 PARENT_DIR=${15}
 CHILD_DIR=${16}
 
-
-
-$Tool_Dir/zookeeper/bin/zkCli.sh delete /brokers/ids/0
-bash $Tool_Dir/script/cleanKafka.sh
 
 function delete_topic() {
     $Topic_shell --delete --zookeeper ${HOST}:2181 --topic $1
@@ -93,7 +89,6 @@ function uploadHDFS() {
     $Hadoop_Dir/bin/hdfs dfs -rm  hdfs://${HOST}:9000/testbed-nexmark/*-dist.tar.gz
     $Hadoop_Dir/bin/hdfs dfs -mkdir hdfs://${HOST}:9000/testbed-nexmark
     $Hadoop_Dir/bin/hdfs dfs -put  ${APP_DIR}/testbed_1.0.0/target/*-dist.tar.gz hdfs://${HOST}:9000/testbed-nexmark
-    rm -rf $Hadoop_Dir/logs/userlogs/*
 }
 
 function compileGenerator() {
@@ -119,8 +114,6 @@ function generatePerson() {
 }
 
 function runApp() {
-    echo "${APP_DIR}/testbed_1.0.0/target/bin/run-app.sh --config-factory=org.apache.samza.config.factories.PropertiesConfigFactory \
-		    --config-path=file://${APP_DIR}/testbed_1.0.0/target/config/nexmark-q${APP}.properties"
     OUTPUT=`${APP_DIR}/testbed_1.0.0/target/bin/run-app.sh --config-factory=org.apache.samza.config.factories.PropertiesConfigFactory \
     --config-path=file://${APP_DIR}/testbed_1.0.0/target/config/nexmark-q${APP}.properties | grep 'application_.*$'`
     app=`[[ ${OUTPUT} =~ application_[0-9]*_[0-9]* ]] && echo $BASH_REMATCH`
@@ -161,6 +154,7 @@ function killGenerator() {
     kill -9 $(jps | grep Generator | awk '{print $1}')
 }
 
+bash $Tool_Dir/script/cleanKafka.sh
 configAppSrc
 clearEnv
 if [ ${IS_COMPILE} == 1 ]

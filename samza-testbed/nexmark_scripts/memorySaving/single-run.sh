@@ -102,7 +102,7 @@ function runAppStatic() {
 }
 
 function killApp() {
-	  $Hadoop_Dir/bin/yarn application -kill ${appid}
+	  $Hadoop_Dir/bin/yarn application -kill ${app}
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q${APP}-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q1-1
     ~/tools/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q2-1
