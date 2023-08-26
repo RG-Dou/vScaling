@@ -66,7 +66,7 @@ function clearEnv() {
     delete_topic nexmark-q${APP}-1-join-join-R
     delete_topic nexmark-q${APP}-1-partition_by-auction
     delete_topic nexmark-q${APP}-1-partition_by-person
-    delete topic nexmark-q${APP}-1-window-count
+    delete_topic nexmark-q${APP}-1-window-count
     delete_topic __samza_coordinator_nexmark-q${APP}_1
     delete_topic results
     python -c 'import time; time.sleep(10)'
