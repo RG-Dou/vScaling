@@ -41,11 +41,11 @@ function delete_topic() {
 function create_topic() {
   while true; do
       create_output=$($Topic_shell --create --zookeeper ${HOST}:2181 --topic $1 --partitions 128 --replication-factor 1 2>&1)
-      if [[ $create_output == *"Topic 'bids' does not exist"* ]]; then
+      if [[ $create_output == *" already exists"* ]]; then
         echo "Topic 'bids' does not exist. Deleting and recreating..."
         delete_topic $1 # Use the provided variable $1
         sleep 2
-      elif [[ $create_output == *"Created topic bids."* ]]; then
+      elif [[ $create_output == *"Created topic"* ]]; then
         echo "Topic 'bids' created successfully."
         break
       else
