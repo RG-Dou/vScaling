@@ -39,7 +39,21 @@ function delete_topic() {
 }
 
 function create_topic() {
-    $Topic_shell --create --zookeeper ${HOST}:2181 --topic $1 --partitions 128 --replication-factor 1
+  while true; do
+      create_output=$($Topic_shell --create --zookeeper ${HOST}:2181 --topic $1 --partitions 128 --replication-factor 1 2>&1)
+      if [[ $create_output == *"Topic 'bids' does not exist"* ]]; then
+        echo "Topic 'bids' does not exist. Deleting and recreating..."
+        delete_topic $1 # Use the provided variable $1
+        sleep 2
+      elif [[ $create_output == *"Created topic bids."* ]]; then
+        echo "Topic 'bids' created successfully."
+        break
+      else
+        echo "An error occurred while creating the topic."
+        echo "$create_output"
+        exit 1
+      fi
+  done
 }
 
 function clearEnv() {
@@ -133,7 +147,7 @@ function runAppStatic() {
 function killApp() {
     $Hadoop_Dir/bin/yarn application -kill $app
     $Tool_Dir/zookeeper/bin/zkCli.sh deleteall /app-nexmark-q${APP}-1
-    $Tool_Dir/zookeeper/bin/zkCli.sh delete /brokers/ids/0
+#    $Tool_Dir/zookeeper/bin/zkCli.sh delete /brokers/ids/0
     path1=$DATA_DIR/$PARENT_DIR
     if [ ! -d "$path1" ]; then
         mkdir -p $path1
