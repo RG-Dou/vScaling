@@ -95,9 +95,12 @@ public class VerticalScaling extends StreamSwitch {
                 (HashMap<String, Double>) (metrics.get("CpuUsage"));
         Map<String, Double> executorHeapUsed =
                 (HashMap<String, Double>) (metrics.get("HeapUsed"));
+        Map<String, Double> executorNonHeapUsed =
+                (HashMap<String, Double>) (metrics.get("NonHeapUsed"));
         Map<String, Long> pgMajFault = (Map<String, Long>) (metrics.get("PGMajFault"));
 
         System.out.println("Model, time " + timeIndex  + ", heap used: " + executorHeapUsed);
+        System.out.println("Model, time " + timeIndex  + ", non-heap used: " + executorNonHeapUsed);
         System.out.println("Model, time " + currentTimeIndex + ", PageFaults: " + pgMajFault);
 
         Map<String, Long> cpuCGUsage = (Map<String, Long>) (metrics.get("CpuCGUsage"));
